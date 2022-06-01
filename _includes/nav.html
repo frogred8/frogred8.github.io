@@ -44,7 +44,7 @@
     of each group are concatenated.
   {%- endcomment -%}
   {%- assign string_ordered_groups = string_ordered_pages
-        | group_by_exp:"item", "item.nav_order | default: item.title | append:''" -%}
+        | group_by_exp:"item", "item.nav_order | default: item.name | append:''" -%}
   {%- if site.nav_sort == 'case_insensitive' -%}
     {%- assign sorted_string_ordered_groups = string_ordered_groups | sort_natural:"name" -%}
   {%- else -%}
