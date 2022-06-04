@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: "[javascript] 컴파일된 js파일의 바이트 코드, 기계어 분석"
 ---
 

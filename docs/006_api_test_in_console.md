@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: "[etc] console에서 API 테스트 방법 (nc, telnet, curl, httpie)"
 ---
 

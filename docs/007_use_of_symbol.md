@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: "[javascript] Symbol의 활용"
 ---
 

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: "[javascript] super property access 소개"
 ---
 

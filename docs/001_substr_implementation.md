@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: "[javascript] substr 구현체 분석"
 ---
 

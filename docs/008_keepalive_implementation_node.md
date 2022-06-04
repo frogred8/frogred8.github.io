@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: "[javascript] http 모듈의 keepAlive 구현"
 ---
 

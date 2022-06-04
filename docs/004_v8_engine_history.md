@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: "[javascript] v8 엔진 컴파일러 변천사"
 ---
 

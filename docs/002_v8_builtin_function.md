@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: "[javascript] builtin 함수 분석"
 ---
 
