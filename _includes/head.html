@@ -10,6 +10,10 @@
     {% endif %}
   {% endunless %}
 
+  {% assign desc = page.content | truncatewords: 30 %}
+  <meta name="description" content="{{ desc }}">
+  <meta name="og:description" content="{{ desc }}">
+  
   <link rel="shortcut icon" href="{{ 'favicon.ico' | relative_url }}" type="image/x-icon">
 
   <link rel="stylesheet" href="{{ '/assets/css/just-the-docs-default.css' | relative_url }}">
