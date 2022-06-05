@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: "[nginx] keepAlive 구현 분석"
 ---
 
