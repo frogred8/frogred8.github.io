@@ -10,7 +10,11 @@
     {% endif %}
   {% endunless %}
 
-  {% assign desc = page.content | truncatewords: 30 %}
+  {% if page.description %}
+    {% assign desc = page.description %}
+  {% else %}
+    {% assign desc = page.content | truncatewords: 30 %}
+  {% endif %}  
   <meta name="description" content="{{ desc }}">
   <meta name="og:description" content="{{ desc }}">
   

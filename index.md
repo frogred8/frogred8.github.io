@@ -1,6 +1,7 @@
 ---
 layout: default
 title: frogred8's blog
+description: "공부한 내용을 만연체로 정리하는 블로그"
 nav_exclude: true
 permalink: /
 ---
