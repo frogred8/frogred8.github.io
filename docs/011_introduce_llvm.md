@@ -59,7 +59,7 @@ source_filename = "calc.c"
 target datalayout = "e-m:o-i64:64-i128:128-n32:64-S128"
 target triple = "arm64-apple-macosx12.0.0"
 
-코드 들어가기 전에 앞에 부분을 보면 컴파일 대상이었던 파일이랑 datalayout, triple이 보여. datalayout은 하이픈을 토큰으로 잘라서 의미를 찾을 수 있어. 첫 글자는 big/little endian을 뜻하는데 e는 little endian을 뜻하고, m:o는 ELF(Executable and Linkable Format)을 의미하고, i64:64는 i64는 64bit를 할당하라는 뜻이야.
+첫 단락부터 보면 컴파일 대상이었던 파일이랑 datalayout, triple이 보여. datalayout은 하이픈을 토큰으로 잘라서 의미를 찾을 수 있어. 첫 글자는 big/little endian을 뜻하는데 e는 little endian을 뜻하고, m:o는 ELF(Executable and Linkable Format)을 의미하고, i64:64는 i64는 64bit를 할당하라는 뜻이야.
 triple 필드는 {arch}{sub}-{vendor}-{sys}-{abi} 형식으로 쓰는데 난 m1이라 저렇게 나오는 듯. 
 
 다음은 함수 본문이야.
