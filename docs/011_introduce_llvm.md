@@ -5,6 +5,7 @@ title: "[etc] LLVM 알아보기 (clang)"
 
 ## [etc] LLVM 알아보기 (clang)
 
+<pre>
 WebAssembly에 대해 알아보다가 LLVM에 대해 자주 나오는데 이에 대한 제대로 된 이해없이는 넘어가기가 쉽지 않아서 한번 정리해봤어.
 
 컴파일러는 큰 범주로 보면 front-end, back-end (이하 fe, be)로 나눠져. fe는 어휘/구문 분석 및 중간 코드 생성과 그에 대한 최적화를 하고, be에서는 해당 플랫폼에서 실행할 수 있는 기계어 생성 및 그에 대한 최적화를 하게 돼. 
@@ -28,7 +29,7 @@ int calc(int a, int b) {
 
 llvm의 지향점대로 컴파일 단계마다 모듈화 되어있기 때문에 별걸 다 볼 수 있어. 추상 구문 트리(AST)를 한번 구경해볼까?
 
-clang -Xclang -ast-dump -fsyntax-only calc.c
+$> clang -Xclang -ast-dump -fsyntax-only calc.c
 
 ...
 `-FunctionDecl 0x14980d9c0 <calc.c:1:1, line:3:1> line:1:5 calc 'int (int, int)'
@@ -48,8 +49,8 @@ calc 함수 지정되는 부분부터 가져왔는데 파라미터 a,b도 보이
 
 이젠 진짜 IR을 볼거야.
 
-clang -emit-llvm -c calc.c
-clang -emit-llvm -S calc.c
+$> clang -emit-llvm -c calc.c
+$> clang -emit-llvm -S calc.c
 
 둘 다 IR을 출력하는 옵션인데 -c는 calc.bc(bitcode) 바이너리 파일을, -S는 calc.ll 텍스트 파일을 출력해. bc 파일은 바이너리라 볼거 없으니 넘기고 ll 파일을 순차적으로 볼게.
 
@@ -59,7 +60,7 @@ target datalayout = "e-m:o-i64:64-i128:128-n32:64-S128"
 target triple = "arm64-apple-macosx12.0.0"
 
 코드 들어가기 전에 앞에 부분을 보면 컴파일 대상이었던 파일이랑 datalayout, triple이 보여. datalayout은 하이픈을 토큰으로 잘라서 의미를 찾을 수 있어. 첫 글자는 big/little endian을 뜻하는데 e는 little endian을 뜻하고, m:o는 ELF(Executable and Linkable Format)을 의미하고, i64:64는 i64는 64bit를 할당하라는 뜻이야.
-triple 필드는 <arch><sub>-<vendor>-<sys>-<abi> 형식으로 쓰는데 난 m1이라 저렇게 나오는 듯. 
+triple 필드는 {arch}{sub}-{vendor}-{sys}-{abi} 형식으로 쓰는데 난 m1이라 저렇게 나오는 듯. 
 
 다음은 함수 본문이야.
 
@@ -93,34 +94,34 @@ ret i32 %8
 
 참고로 .ll파일과 .bc파일은 아래 명령으로 서로 변환이 가능해.
 
-llvm-as calc.ll
-llvm-dis calc.bc 
+$> llvm-as calc.ll
+$> llvm-dis calc.bc 
 
 이제 IR도 봤으니 어셈블리도 한번 뽑아볼까? 어셈으로 컴파일되면 .s파일로 나오는데 clang을 쓰는 방법과 llc를 쓰는 방법이 있어. llc는 입력 인자로 IR파일을 받는데 ll, bc파일에 상관없이 다 변환돼.
 
-clang -S calc.c
-llc calc.ll
+$> clang -S calc.c
+$> llc calc.ll
 
 calc.s파일은 이렇게 생겼는데 일반적인 어셈이야.
 
-	.section	__TEXT,__text,regular,pure_instructions
-	.build_version macos, 12, 0	sdk_version 12, 3
-	.globl	_calc                           ; -- Begin function calc
-	.p2align	2
+  .section	__TEXT,__text,regular,pure_instructions
+  .build_version macos, 12, 0	sdk_version 12, 3
+  .globl	_calc                           ; -- Begin function calc
+  .p2align	2
 _calc:                                  ; @calc
-	.cfi_startproc
+  .cfi_startproc
 ; %bb.0:
-	sub	sp, sp, #16                     ; =16
-	.cfi_def_cfa_offset 16
-	str	w0, [sp, #12]
-	str	w1, [sp, #8]
-	ldr	w8, [sp, #12]
-	ldr	w9, [sp, #8]
-	add	w0, w8, w9, lsl #1
-	add	sp, sp, #16                     ; =16
-	ret
-	.cfi_endproc
-                                        ; -- End function
+  sub	sp, sp, #16                     ; =16
+  .cfi_def_cfa_offset 16
+  str	w0, [sp, #12]
+  str	w1, [sp, #8]
+  ldr	w8, [sp, #12]
+  ldr	w9, [sp, #8]
+  add	w0, w8, w9, lsl #1
+  add	sp, sp, #16                     ; =16
+  ret
+  .cfi_endproc
+                                    ; -- End function
 .subsections_via_symbols
 
 이제 저 어셈 파일을 오브젝트 파일로 만들어 볼 차례야. 그런데 다음 스텝부터는 main 함수가 있어야 진행이 가능해서 calc함수를 호출하는 main 함수를 넣고 진행했어. 
@@ -136,7 +137,7 @@ int main() {
   return 0;
 }
 
-clang -c calc.s
+$> clang -c calc.s
 
 -c 옵션에 대한 설명을 보면, 'Run all of the above, plus the assembler, generating a target ".o" object file.'라고 나와있어서 중간 단계인 .ll이나 .bc 파일을 지정해서 해보니 calc.o파일로 잘 나오더라고. 똑똑해 똑똑해.
 이렇게 나온 calc.o 오브젝트 파일을 executable file로 생성해서 실행해보면 출력값 50이 잘 나오는 걸 확인할 수 있어.
