@@ -1,7 +1,6 @@
 ---
 layout: page
 title: "[WASM] WebAssembly 생성 및 예제 (2)"
-nav_exclude: true
 ---
 
 ## [WASM] WebAssembly 생성 및 예제 (2)
