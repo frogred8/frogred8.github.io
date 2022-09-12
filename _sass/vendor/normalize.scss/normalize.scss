@@ -62,8 +62,10 @@ hr {
  */
 
 pre {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.1em; /* 2 */
+  letter-spacing: 0.5px;
 }
 
 /* Text-level semantics
