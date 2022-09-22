@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://frogred8.github.io/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/001_substr_implementation/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/002_v8_builtin_function/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/003_super_property/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/004_v8_engine_history/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/005_compiled_js_file/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/006_api_test_in_console/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/007_use_of_symbol/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/008_keepalive_implementation_node/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/009_keepalive_implementation_nginx/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/010_asmjs_and_wasm/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/011_introduce_llvm/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/012_create_wasm/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/013_create_wasm_2/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/014_cache_line/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/015_prime_numbers/</loc>
+  <lastmod>2022-09-22T00:45:16+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+</urlset>
