@@ -60,7 +60,7 @@ void Assembler::GenInstrRegister(Opcode opcode, SecondaryField fmt, Register rt,
 
 void Assembler::EmitHelper(Instr x, CompactBranchType is_compact_branch) {
   ....
-  *reinterpret_cast<Instr*>(pc_) = x;
+  *reinterpret_cast&lt;Instr*>(pc_) = x;
   pc_ += kInstrSize;
   if (is_compact_branch == CompactBranchType::COMPACT_BRANCH) {
     EmittedCompactBranchInstruction();
@@ -112,7 +112,7 @@ void Builtins::Generate_ReflectApply(MacroAssembler* masm) {
 
 등록된 빌트인 함수의 사용은 substr처럼 동일하게 등록할 때 연결했던 함수 코드를 넣으면 안에서 함수 찾아다가 호출하는 방식이야.
 
-Handle<JSFunction> apply = SimpleInstallFunction(isolate_, reflect, "apply", Builtin::kReflectApply, 3, false);
+Handle&lt;JSFunction> apply = SimpleInstallFunction(isolate_, reflect, "apply", Builtin::kReflectApply, 3, false);
  
 
 여기까지 어셈 빌트인 함수의 생성, 등록, 사용까지 알아봤어.

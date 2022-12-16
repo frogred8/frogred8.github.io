@@ -137,7 +137,7 @@ DEF_BINOP(Divide_WithFeedback, Generate_DivideWithFeedback)
 
 1. 숫자 + 숫자
 
-TNode<Object> BinaryOpAssembler::Generate_AddWithFeedback(context, lhs, rhs, slot_id, maybe_feedback_vector, update_feedback_mode, rhs_known_smi) {
+TNode&lt;Object> BinaryOpAssembler::Generate_AddWithFeedback(context, lhs, rhs, slot_id, maybe_feedback_vector, update_feedback_mode, rhs_known_smi) {
   Branch(TaggedIsNotSmi(lhs), &if_lhsisnotsmi, &if_lhsissmi);
   BIND(&if_lhsissmi);
   {
@@ -147,7 +147,7 @@ TNode<Object> BinaryOpAssembler::Generate_AddWithFeedback(context, lhs, rhs, slo
       BIND(&if_rhsisnotsmi);
       {
         // Check if the {rhs} is a HeapNumber.
-        TNode<HeapObject> rhs_heap_object = CAST(rhs);
+        TNode&lt;HeapObject> rhs_heap_object = CAST(rhs);
         var_fadd_lhs = SmiToFloat64(lhs_smi);
         var_fadd_rhs = LoadHeapNumberValue(rhs_heap_object);
         Goto(&do_fadd);
@@ -155,8 +155,8 @@ TNode<Object> BinaryOpAssembler::Generate_AddWithFeedback(context, lhs, rhs, slo
       BIND(&if_rhsissmi);
     }
     {
-      TNode<Smi> rhs_smi = CAST(rhs);
-      TNode<Smi> smi_result = TrySmiAdd(lhs_smi, rhs_smi, &if_overflow);
+      TNode&lt;Smi> rhs_smi = CAST(rhs);
+      TNode&lt;Smi> smi_result = TrySmiAdd(lhs_smi, rhs_smi, &if_overflow);
       {
         var_result = smi_result;
         Goto(&end);
@@ -167,8 +167,8 @@ TNode<Object> BinaryOpAssembler::Generate_AddWithFeedback(context, lhs, rhs, slo
   BIND(&do_fadd);
   {
     ...
-    TNode<Float64T> value = Float64Add(var_fadd_lhs.value(), var_fadd_rhs.value());
-    TNode<HeapNumber> result = AllocateHeapNumberWithValue(value);
+    TNode&lt;Float64T> value = Float64Add(var_fadd_lhs.value(), var_fadd_rhs.value());
+    TNode&lt;HeapNumber> result = AllocateHeapNumberWithValue(value);
     var_result = result;
     Goto(&end);
   }
@@ -228,7 +228,7 @@ switch 분기문에서 이런 식의 define으로 풀어지게 되는데 이 때
 GotoIf(IsStringInstanceType(lhs_instance_type), &lhs_is_string);
 BIND(&lhs_is_string);
 {
-  TNode<Uint16T> rhs_instance_type = LoadInstanceType(rhs_heap_object);
+  TNode&lt;Uint16T> rhs_instance_type = LoadInstanceType(rhs_heap_object);
   GotoIfNot(IsStringInstanceType(rhs_instance_type), &call_with_any_feedback);
   var_result = CallBuiltin(Builtin::kStringAdd_CheckNone, context(), lhs, rhs);
   Goto(&end);
@@ -244,22 +244,22 @@ TFS(StringAdd_CheckNone, kLeft, kRight)
 
 // builtins-string-gen.cc
 TF_BUILTIN(StringAdd_CheckNone, StringBuiltinsAssembler) {
-  auto left = Parameter<String>(Descriptor::kLeft);
-  auto right = Parameter<String>(Descriptor::kRight);
+  auto left = Parameter&lt;String>(Descriptor::kLeft);
+  auto right = Parameter&lt;String>(Descriptor::kRight);
   Return(StringAdd(context, left, right));
 }
 
-TNode<String> StringBuiltinsAssembler::StringAdd(context, left, right) {
+TNode&lt;String> StringBuiltinsAssembler::StringAdd(context, left, right) {
   TVARIABLE(String, result);
-  TNode<Uint32T> left_length = LoadStringLengthAsWord32(left);
-  TNode<Uint32T> right_length = LoadStringLengthAsWord32(right);
-  TNode<Uint32T> new_length = Uint32Add(left_length, right_length);
+  TNode&lt;Uint32T> left_length = LoadStringLengthAsWord32(left);
+  TNode&lt;Uint32T> right_length = LoadStringLengthAsWord32(right);
+  TNode&lt;Uint32T> new_length = Uint32Add(left_length, right_length);
   result = AllocateConsString(new_length, var_left.value(), var_right.value());
   return result.value();
 }
 
-TNode<String> StringBuiltinsAssembler::AllocateConsString(TNode<Uint32T> length, TNode<String> left, TNode<String> right) {
-  TNode<HeapObject> result = AllocateInNewSpace(ConsString::kSize);
+TNode&lt;String> StringBuiltinsAssembler::AllocateConsString(TNode&lt;Uint32T> length, TNode&lt;String> left, TNode&lt;String> right) {
+  TNode&lt;HeapObject> result = AllocateInNewSpace(ConsString::kSize);
   StoreObjectFieldNoWriteBarrier(result, ConsString::kLengthOffset, length);
   StoreObjectFieldNoWriteBarrier(result, ConsString::kFirstOffset, left);
   StoreObjectFieldNoWriteBarrier(result, ConsString::kSecondOffset, right);
@@ -309,7 +309,7 @@ transitioning builtin Add(implicit context: Context)(
           return math::TrySmiAdd(left, right) otherwise goto Float64s(SmiToFloat64(left), SmiToFloat64(right));
         }
         case (right: HeapNumber): {
-          goto Float64s(SmiToFloat64(left), Convert<float64>(right));
+          goto Float64s(SmiToFloat64(left), Convert&lt;float64>(right));
         }
         case (right: BigInt): {
           goto Numerics(left, right);

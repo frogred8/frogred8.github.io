@@ -32,7 +32,7 @@ Why the weird name for the project?
 
 이제 진짜 예제로 들어가볼게.
 
-#include <emscripten.h>
+#include &lt;emscripten.h>
 int EMSCRIPTEN_KEEPALIVE calc(int a, int b) {
   return a + b * 2;
 }
@@ -54,13 +54,13 @@ var _calc = Module["_calc"] = createExportWrapper("calc");
 
 $> emcc ./calc.c -s EXPORTED_RUNTIME_METHODS="['ccall', 'cwrap']"
 
-<script src="a.out.js"></script>
-<script>
+&lt;script src="a.out.js">&lt;/script>
+&lt;script>
 Module.onRuntimeInitialized = _ => {
   const calc = Module.cwrap('calc', 'number', ['number', 'number']);
   console.log(calc(10, 20));
 };
-</script>
+&lt;/script>
 
 index.html에 저 내용을 넣고 로컬에서 해보니까 CORS 에러가 나오긴 하는데 어찌저찌 http-server로 우회해서 해보니까 개발자 도구 콘솔에 50이 잘 찍혀있더라. 연결 성공!
 
@@ -68,7 +68,7 @@ index.html에 저 내용을 넣고 로컬에서 해보니까 CORS 에러가 나�
 
 아래에서는 변경된 예제 코드랑 컴파일 및 실행까지 한번에 해봤어.
 
-#include <stdio.h>
+#include &lt;stdio.h>
 int calc(int a, int b) {
   return a + b * 2;
 }
@@ -117,12 +117,12 @@ $> wasm-pack build --target web
 
 어쨌든 그 코드 외에도 WebAssembly.instantiate 함수를 사용해서 wasm을 js로 불러와서 초기화 하는 코드들이 잔뜩 있어. 근데 자동 생성해주는 js파일에서 init함수가 자동 호출이 잘 안돼서 그냥 index.html에서 강제로 호출하게 짰어. 사소한 기술적 문제들은 패스패스.
 
-<script type="module">
+&lt;script type="module">
   import init from "./pkg/calc_wasm.js";
   init().then((js) => {
     console.log(js.calc(10,20));
   });
-</script>
+&lt;/script>
 
 실행해보면 개발자 도구 콘솔에 50이 찍히는 걸 볼 수 있어. 이렇게 rust에서 만든 함수도 웹 연동 끝~
 근데 rust의 wasm은 클로저나 WebGL 같은 외부 객체의 적용 예제가 공식 문서에 잘 정리되어 있더라고. 디테일에 조금 감탄했는데 구경이나 한번 해봐. https://rustwasm.github.io/docs/wasm-bindgen/examples/

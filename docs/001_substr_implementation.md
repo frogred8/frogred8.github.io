@@ -40,9 +40,9 @@ SubString은 v8의 빌트인 함수로 구현되어 있다는걸 알 수 있었�
 
 저 StringSubstring 키워드는 builtins-string-gen.cc로 연결돼서 선언되는데
 TF_BUILTIN(StringSubstring, StringBuiltinsAssembler) {
-  auto string = Parameter<String>(Descriptor::kString);
-  auto from = UncheckedParameter<IntPtrT>(Descriptor::kFrom);
-  auto to = UncheckedParameter<IntPtrT>(Descriptor::kTo);
+  auto string = Parameter&lt;String>(Descriptor::kString);
+  auto from = UncheckedParameter&lt;IntPtrT>(Descriptor::kFrom);
+  auto to = UncheckedParameter&lt;IntPtrT>(Descriptor::kTo);
   Return(SubString(string, from, to));
 }
 

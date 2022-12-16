@@ -96,7 +96,7 @@ void Environment::ScheduleTimer(int64_t duration_ms) {
 
 void Environment::RunTimers(uv_timer_t* handle) {
   ....
-  Local<Function> cb = env->timers_callback_function();
+  Local&lt;Function> cb = env->timers_callback_function();
   do {
     ret = cb->Call(env->context(), process, 1, &arg);
   } while (ret.IsEmpty() && env->can_call_into_js());

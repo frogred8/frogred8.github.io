@@ -127,7 +127,7 @@ _calc:                                  ; @calc
 이제 저 어셈 파일을 오브젝트 파일로 만들어 볼 차례야. 그런데 다음 스텝부터는 main 함수가 있어야 진행이 가능해서 calc함수를 호출하는 main 함수를 넣고 진행했어. 
 
 // calc.c
-#include <stdio.h>
+#include &lt;stdio.h>
 int calc(int a, int b) {
   return a + b * 2;
 }
