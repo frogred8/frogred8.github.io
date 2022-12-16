@@ -1,24 +1,108 @@
 ---
 layout: page
 title: "[c++] 메모리 해제 시 사이즈를 적지 않아도 되는 이유"
-nav_exclude: true
 ---
 
 ## [c++] 메모리 해제 시 사이즈를 적지 않아도 되는 이유
 
 <pre>
 
-빠밤
+- 개요
+얼마 전에 트위터에서 대충 이런 내용의 글을 읽었어.
+'malloc은 할당 크기를 인자로 받는데 free는 포인터만 받는다. 크기를 안받아도 되는 이유는 포인터마다 크기를 저장하는 룩업테이블이 있기 때문이다.' 라는 글이야.
+https://twitter.com/sanxiyn/status/1558719967398223872
+
+메모리 할당/해제 동작을 사용만 했지 실제 구현부를 본 적이 없어서 저 주장이 참 그럴싸하더라고.
+그래서 나름대로 메모리 할당 부분의 구현부도 분석해보고 테스트도 좀 해봤는데 그에 대해 정리한 내용이야.
+다만 내 지식이 얕은 부분이 많아서 혹시 잘못된 내용이 있다면 언제든 피드백 부탁해.
+
+- msvc 분석
+메모리 디버깅은 아무래도 윈도우가 편해서 msvc에서 먼저 시도해봤는데, malloc 구현부는 CRT 라이브러리라서 코드가 공개되어 있어. 
+원래는 p~files/vc/crt/src 하위에 있었는데 msvc2022에는 없어서 찾아봤더니 2015버전 이후로는 msvc 설치할 때에 "Universal CRT SDK" 패키지를 별도로 선택해서 설치해야 p~files/Windows Kits/10 에 생기더라.
+
+그 폴더에서 source/10.0.19041.0/ucrt 아래로 가니까 실제 유니버셜 CRT 구현부가 들어있었어.
+stdio, stdlib, heap, string 등등.. 
+실제 malloc 구현부는 heap/malloc_base.cpp에 들어있는데 간략히 줄여봤어.
+
+void* __cdecl _malloc_base(size_t const size)
+{
+  void* const block = HeapAlloc(__acrt_heap, 0, size);
+  return block;
+}
+
+HeapAlloc 함수를 다시 호출하고 있는데 이건 heapapi.h에 선언만 되어있고 구현부는 볼 수가 없었어.
+microsoft mvp는 이런 내부 코드도 볼 수 있다고 언뜻 듣긴 했는데 난 당연히 아니라서..
+다른 방법이 있는지 모르겠는데 어쨌든 msvc 구현부를 보진 못해서 테스트로 유추해보기로 했어.
 
 
+- msvc 테스트
+실행할 때마다 시작 주소 바뀌면 귀찮으니까 프로젝트 설정에서 Linker - Advanced - Randomized Base Address 옵션을 꺼주면 동일한 주소로 나와서 편해. 당연하겠지만 동적 할당되는 메모리는 매번 달라.
 
-std::string에서 짧은 문자열은 어떻게 생성되는가 (SSO)
-https://blogs.msmvps.com/gdicanio/2016/11/17/the-small-string-optimization/
+테스트 코드는 이렇게 했어.
+
+int main()
+{
+  volatile int* a = (int*)malloc(0x1f00 * 4);  // 31kb
+  a[0] = 0xeeeeeeee;
+  a[1] = 0x89abcdef;
+  a[0x3cccb] = (int)rand();
+  printf("%d, %d\n", a[1], a[0x3cccb]);
+  free(a);
+}
+
+volatile 지시어를 써서 릴리즈 모드에도 최적화되지 않게 했고, 혹시 몰라서 랜덤값넣고 출력까지 해줬어. (요즘 컴파일러가 워낙에 똑똑해서..)
+
+디버그 모드로 해보니 할당된 주소 앞쪽에 여러가지 정보들이 추가되었어. 프로그램이 실행되고 나서 메모리가 할당된 횟수, 메모리 크기, 할당을 요청한 명령 주소 등등.
+그런데 내가 실제로 보고 싶은건 malloc 시에 기록되는 정보라서 릴리즈 모드로 해봤는데 몇 번을 바꿔봐도 메모리 주소 근처에 메모리 크기 정보 비슷한게 없는거야.
+그래서 조금 시무룩했는데 할당 크기를 크게 바꾸니까 새로운 값이 나오더라고.
+그래서 이 결과로 유추해 본 내용이야.
 
 
-#define INTERNAL_SIZE_T size_t
-#define SIZE_SZ (sizeof (INTERNAL_SIZE_T))
-#define MAX_FAST_SIZE     (80 * SIZE_SZ / 4)
+- 그래서 메모리 할당은 어떻게?
+일단, 메모리 할당은 매우 빈번한 작업이야. 
+그렇기 때문에 각 컴파일러나 os에서는 할당 부하를 최소화시키는 여러가지 전략을 쓰는데 대표적으로 chuck마다 고정 크기로 구성되어 있어서 메모리 할당 시 해당 chunk 주소를 전달하는거지.
+이 방법은 요청한 크기가 작아도 항상 chunk 하나를 할당하기 때문에 공간 효율적이진 않지만 해제 비용도 거의 들지 않고 메모리 단편화가 없는 장점이 있어. 그리고 연속된 메모리는 그 자체로 캐시힛이 발생하는 부가적인 이득도 있고.
 
-할당하는 메모리가 MAX_FAST_SIZE보다 작으면 이미 선점해놓은 메모리 대역을 사용
+이보다 발전된 방법으로는 chunk보다 큰 크기를 요청하면 그 다음 chunk까지 합쳐서 전달해주는 방식이야. 할당할 때는 괜찮은데 해제할 때에 합쳐진 chunk를 분리하는 비용이 비싸지는 단점이 있어. 물론 메모리 단편화도 문제고.
 
+위 방법들에는 당연히 할당 해제 시에 크기가 필요없어. 왜냐하면 여러 개가 합쳐져 있는 chunk를 반환하더라도 linked list로 구성된 next_chunk 주소값에서 빼면 바로 크기가 나오잖아.
+내가 msvc 테스트하면서 초기에 할당했던 작은 메모리들은 아마 저렇게 바로 역산이 가능해서 크기값이 안보였을거야. 
+
+근데 저 방법은 큰 메모리 할당이 어렵다는 한계가 있어. 그래서 할당하는 메모리 크기를 쭈욱 늘리면서 테스트해보니 역시나 520184byte, 약 507kb 이상이 할당되면 그 때부터 알고리즘이 바뀌면서 할당된 메모리 주소 앞에 여러가지 값이 존재했고, 거기서 크기로 예상되는 값을 얻을 수 있었어.
+
+정확히는 할당된 주소-16의 위치에 써진 값인데 네 번 테스트해본 결과는 이렇게 나왔어.
+
+(할당 크기) -> (주소-16 값)
+ 0x7eff8 -> 0x80000
+0x13b330 -> 0x13c000
+0x13c3b8 -> 0x13d000
+0x173330 -> 0x174000
+
+여기서 요청한 크기에 4kb로 올림한 크기를 저장하고 있다는 것을 알 수 있었어.
+결국 free 함수에서는 할당된 주소 앞에 구성된 구조체 정보를 읽어서 사용하고 있을거야.
+(이상 뇌피셜)
+
+
+- 소회
+사실 msvc에서는 구현부 공개가 되어있지 않아서 glibc의 malloc 부분을 열심히 분석해봤는데 워낙에 조건별 최적화를 많이 해놓다보니 온갖 비트 연산이 다 있고, 조건부도 많은데다 관련 코드 양이 어마어마해서 결국 큰 줄기만 분석하고 끝냈어.
+한 번 구경해보고 싶은 사람들은 github에서 glibc 받아다가 malloc.c 파일의 __libc_malloc() 함수보면 될거야.
+malloc함수는 이렇게 연결되어 있거든.
+
+strong_alias (__libc_malloc, __malloc) strong_alias (__libc_malloc, malloc)
+
+그리고 할당된 메모리의 쓰레기 값이 궁금해서 검색해보다가 알게 된 링크인데 메모리 구조가 잘 나와있어. (이걸 미리 봤었어야 삽질을 덜했을텐데..)
+https://www.nobugs.org/developer/win32/debug_crt_heap.html
+
+The newly allocated memory (0xCD) is Clean memory.
+The free()d memory (0xDD) is Dead memory.
+The guard bytes (0xFD) are like Fences around your memory.
+
+
+결론)
+1) os, 컴파일러마다 메모리 할당 방식이 다른데 특히 할당받는 크기에 따라 다른 방식을 사용하도록 발전해왔다.
+2) 작은 크기의 메모리는 보통 linked list로 구성된 chunk 방식을 사용한다.
+3) 큰 크기의 메모리는 앞쪽에 메모리를 구성하는 구조체 정보가 존재하고, 이 값으로 해제할 크기를 알아온다.
+4) 패러다임이 언제든 바뀔 수 있으니 참고만 하자.
+
+이전글: https://frogred8.github.io/
+#frogred8 #c++ #memory #allocation
