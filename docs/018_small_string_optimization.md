@@ -1,9 +1,9 @@
 ---
 layout: page
-title: "std::string에서 짧은 문자열은 어떻게 생성되는가 (SSO)"
+title: "[c++] std::string에서 짧은 문자열은 어떻게 생성되는가 (SSO)"
 ---
 
-## std::string에서 짧은 문자열은 어떻게 생성되는가 (SSO)
+## [c++] std::string에서 짧은 문자열은 어떻게 생성되는가 (SSO)
 
 <pre>
 
