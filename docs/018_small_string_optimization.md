@@ -1,12 +1,10 @@
 ---
 layout: page
 title: "[c++] std::string에서 짧은 문자열은 어떻게 생성되는가 (SSO)"
+date: 2022-12-31
 ---
 
-## [c++] std::string에서 짧은 문자열은 어떻게 생성되는가 (SSO)
-
 <pre>
-
 이전에 malloc을 분석하면서 gcc의 libstdc++ 코드를 살펴보게 되었는데 std::string 객체에 SSO가 있는걸 보고 여러 라이브러리의 구현부에 대해 분석한 내용을 공유해볼까 해.
 
 - 개요

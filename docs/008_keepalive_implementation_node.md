@@ -1,9 +1,8 @@
 ---
 layout: page
 title: "[javascript] keepAlive 구현 분석"
+date: 2022-06-01
 ---
-
-## [javascript] keepAlive 구현 분석
 
 <pre>
 이전에는 커맨드 별 api 테스트 방법을 알아봤는데 이거쓰면서 alive 구현이 궁금해졌어. 왜냐하면 내가 서버측에서 keepAliveTimeout을 변경해봤는데 어느 포스팅에서 알려주기로는 keepAliveTimeout과 headersTimeout을 같이 바꿔야 한다는 얘기가 있어서 node 18버전에서 실제로 해보니 keepAliveTimeout만 바꿔도 잘 적용되더라고.

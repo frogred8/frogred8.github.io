@@ -1,9 +1,8 @@
 ---
 layout: page
 title: "[etc] console에서 API 테스트 방법 (nc, telnet, curl, httpie)"
+date: 2022-05-22
 ---
-
-## [etc] console에서 API 테스트 방법 (nc, telnet, curl, httpie)
 
 <pre>
 이번엔 웹 서버를 열어놓고 간단히 api 테스트를 하는 방법에 대해 하나씩 알아볼거야. 내 컴퓨터에서 익숙한 라이브러리를 사용해서 테스트할 수도 있지만 서버에 직접 들어가서 할 때도 있으니까 기본 방법부터 같이 보자. 여기선 3000번 포트에 {msg:'hello'} 반환하는 간단한 js서버를 띄워놨어.

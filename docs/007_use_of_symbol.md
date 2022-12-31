@@ -1,9 +1,8 @@
 ---
 layout: page
 title: "[javascript] Symbol의 활용"
+date: 2022-05-25
 ---
-
-## [javascript] Symbol의 활용
 
 <pre>
 이번엔 작고 귀여운 녀석을 가져와봤어.

@@ -1,9 +1,8 @@
 ---
 layout: page
 title: "[javascript] builtin 함수 분석"
+date: 2022-05-03
 ---
-
-## [javascript] builtin 함수 분석
 
 <pre>
 어제 긴글 쓰느라 좀 지쳤는데 많이들 좋아해줘서 힘이 나네.

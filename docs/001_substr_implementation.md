@@ -1,9 +1,8 @@
 ---
 layout: page
 title: "[javascript] substr 구현체 분석"
+date: 2022-05-01
 ---
-
-## [javascript] substr 구현체 분석
 
 <pre>
 그냥 오늘 공부한거 정리좀 해보려고.

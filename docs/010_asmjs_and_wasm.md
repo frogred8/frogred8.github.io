@@ -1,12 +1,10 @@
 ---
 layout: page
 title: "[WASM] asm.js, WebAssembly의 이해"
+date: 2022-06-16
 ---
 
-## [WASM] asm.js, WebAssembly의 이해
-
 <pre>
-
 오늘 알아볼 주제는 WebAssembly, 약어로는 WASM이라고 쓰고 와즘이라고 읽어. 이게 왜 만들어졌는지, 그리고 어디에 사용할 수 있는지 먼저 알아볼게.
 
 자바스크립트는 느려. 왜냐하면 태생이 JIT 컴파일러를 사용하는 스크립트 언어라서 그래. 

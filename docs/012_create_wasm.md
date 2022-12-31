@@ -1,12 +1,10 @@
 ---
 layout: page
 title: "[WASM] WebAssembly 생성 및 예제 (1)"
+date: 2022-06-21
 ---
 
-## [WASM] WebAssembly 생성 및 예제 (1)
-
 <pre>
-
 이전 글에서는 LLVM인 clang에 대해서 알아봤어. 왜 WebAssembly(이하 WASM)를 설명하다가 난데없이 그쪽을 깊이 알아봤냐면 Emcripten이란 도구를 설명하면서 LLVM의 이해가 필요했기 때문이야. 이번 글에서는 실제로 WASM 생성을 해볼건데 예제를 생성하려다보니 코드가 좀 많은 편이지만 천천히 따라와 봐.
 
 일단 .wasm 파일은 바이너리 파일로 구성되어 있는데 파일 형식은 ELF(Executable and Linkable Format)나 Mach-O(Mach Object file format)와 비슷하게 되어 있어. 

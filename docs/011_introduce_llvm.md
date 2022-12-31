@@ -1,9 +1,8 @@
 ---
 layout: page
 title: "[etc] LLVM 알아보기 (clang)"
+date: 2022-06-18
 ---
-
-## [etc] LLVM 알아보기 (clang)
 
 <pre>
 WebAssembly에 대해 알아보다가 LLVM에 대해 자주 나오는데 이에 대한 제대로 된 이해없이는 넘어가기가 쉽지 않아서 한번 정리해봤어.

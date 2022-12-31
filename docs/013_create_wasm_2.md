@@ -1,6 +1,7 @@
 ---
 layout: page
 title: "[WASM] WebAssembly 생성 및 예제 (2)"
+date: 2022-08-30
 ---
 
 ## [WASM] WebAssembly 생성 및 예제 (2)

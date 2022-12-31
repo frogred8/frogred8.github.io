@@ -1,9 +1,8 @@
 ---
 layout: page
 title: "[nginx] keepAlive 구현 분석"
+date: 2022-06-05
 ---
-
-## [nginx] keepAlive 구현 분석
 
 <pre>
 이전 글에서 말했듯 node에서의 keepAlive는 타이머 객체를 우선순위 큐에 넣어서 실행하도록 구현되어 있었는데 c코드인 nginx는 어떻게 구현되어 있을지 궁금해서 한 번 살펴봤어.

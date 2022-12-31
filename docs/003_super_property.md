@@ -1,10 +1,9 @@
 ---
 layout: page
 title: "[javascript] super property access 소개"
+date: 2022-05-06
 ---
 
-## [javascript] super property access 소개
-  
 <pre>
 이번엔 v8 9.0에서 수십배 빨라진 super property 접근에 대한 아티클을 가볍게 소개하고 안에 구조도 한 번 구경할거야.
 https://v8.dev/blog/fast-super
@@ -46,12 +45,12 @@ https://github.com/v8/v8/commit/5339e5467ef33fd064fb996652ea01f876432edd
 
 일단 기존 코드에서는 어떻게 super property를 가져오는지 보면, 
 
-MaybeHandle<Object> LoadFromSuper(Isolate* isolate, Handle<Object> receiver,
-                                  Handle<JSObject> home_object,
+MaybeHandle&lt;Object> LoadFromSuper(Isolate* isolate, Handle&lt;Object> receiver,
+                                  Handle&lt;JSObject> home_object,
                                   PropertyKey* key) {
   ....
   LookupIterator it(isolate, receiver, *key, holder);
-  Handle<Object> result;
+  Handle&lt;Object> result;
   ASSIGN_RETURN_ON_EXCEPTION(isolate, result, Object::GetProperty(&it), Object);
   return result;
 }
@@ -59,7 +58,7 @@ MaybeHandle<Object> LoadFromSuper(Isolate* isolate, Handle<Object> receiver,
 LookupIterator it 를 생성해서 GetProperty 로 넘기는 걸 볼 수 있어. 
 그럼 GetProperty 도 봐야지?
 
-MaybeHandle<Object> Object::GetProperty(LookupIterator* it, bool is_global_reference) {
+MaybeHandle&lt;Object> Object::GetProperty(LookupIterator* it, bool is_global_reference) {
   for (; it->IsFound(); it->Next()) {
     switch (it->state()) {
       case LookupIterator::NOT_FOUND:
@@ -67,8 +66,8 @@ MaybeHandle<Object> Object::GetProperty(LookupIterator* it, bool is_global_refer
         UNREACHABLE();
       case LookupIterator::JSPROXY: {
         ....
-        MaybeHandle<Object> result =
-            JSProxy::GetProperty(it->isolate(), it->GetHolder<JSProxy>(),
+        MaybeHandle&lt;Object> result =
+            JSProxy::GetProperty(it->isolate(), it->GetHolder&lt;JSProxy>(),
                                  it->GetName(), receiver, &was_found);
         ....
 
@@ -97,24 +96,24 @@ void AccessorAssembler::LoadSuperIC(const LoadICParameters* p) {
   ....
   // The lookup start object cannot be a SMI, since it's the home object's
   // prototype, and it's not possible to set SMIs as prototypes.
-  TNode<Map> lookup_start_object_map =
+  TNode&lt;Map> lookup_start_object_map =
       LoadReceiverMap(p->lookup_start_object());
   GotoIf(IsDeprecatedMap(lookup_start_object_map), &miss);
-  TNode<MaybeObject> feedback =
+  TNode&lt;MaybeObject> feedback =
       TryMonomorphicCase(p->slot(), CAST(p->vector()), lookup_start_object_map,
                          &if_handler, &var_handler, &try_polymorphic);
 
 클래스 이름이 Accessor인걸 보면 알다시피 어딘가 접근하는 구현을 모아놓은 클래스라는걸 짐작할 수 있어. 여기서 중요한 부분은 lookup_start_object_map 생성부인데 함수는 아래처럼 되어있어.
 
-TNode<Map> CodeStubAssembler::LoadReceiverMap(TNode<Object> receiver) {
-  return Select<Map>(
+TNode&lt;Map> CodeStubAssembler::LoadReceiverMap(TNode&lt;Object> receiver) {
+  return Select&lt;Map>(
       TaggedIsSmi(receiver), [=] { return HeapNumberMapConstant(); },
-      [=] { return LoadMap(UncheckedCast<HeapObject>(receiver)); });
+      [=] { return LoadMap(UncheckedCast&lt;HeapObject>(receiver)); });
 }
 
 저기 Select 함수는 차례대로 condition, true_body, false_body로 이뤄져있는데 풀어보면 지금 receiver가 small integer 값이면 number map으로, 아니면 LoadMap으로 가라는 뜻이야. 여기서 우린 숫자키를 넘기진 않을테니 LoadMap 함수로 빠지는데 타고타고 들어가면 최종 leap함수는 이렇게 생긴 raw_assembler에 포함된 함수를 호출하게 돼.
 
-Node* CodeAssembler::LoadFromObject(MachineType type, TNode<Object> object, TNode<IntPtrT> offset) {
+Node* CodeAssembler::LoadFromObject(MachineType type, TNode&lt;Object> object, TNode&lt;IntPtrT> offset) {
   return raw_assembler()->LoadFromObject(type, object, offset);
 }
 
