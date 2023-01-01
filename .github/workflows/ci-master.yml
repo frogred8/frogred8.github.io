@@ -1,9 +1,9 @@
 on:
   push:
     branches:
-      - main
+      - custom
 
-name: main branch CI
+name: custom branch CI
 
 jobs:
   jekyll-latest:
