@@ -10,8 +10,10 @@ jobs:
     name: Build Jekyll site (latest)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@custom
+      - uses: actions/checkout@main
 
+      - name: work around permission issue
+        run: git config --global --add safe.directory /srv/jekyll
       - name: Build the site in the jekyll/builder container
         run: |
           docker run --rm \
@@ -21,8 +23,10 @@ jobs:
     name: Build Jekyll site (v3.8.5)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@custom
+      - uses: actions/checkout@main
 
+      - name: work around permission issue
+        run: git config --global --add safe.directory /srv/jekyll
       - name: Build the site in the jekyll/builder container
         run: |
           docker run --rm \
