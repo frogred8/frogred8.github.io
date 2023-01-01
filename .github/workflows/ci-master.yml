@@ -10,7 +10,7 @@ jobs:
     name: Build Jekyll site (latest)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@custom
 
       - name: Build the site in the jekyll/builder container
         run: |
@@ -21,7 +21,7 @@ jobs:
     name: Build Jekyll site (v3.8.5)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@custom
 
       - name: Build the site in the jekyll/builder container
         run: |
