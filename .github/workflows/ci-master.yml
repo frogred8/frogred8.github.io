@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@main
 
       - name: work around permission issue
-        run: git config --global --add safe.directory /srv/jekyll
+        run: git config --global --add safe.directory "*"
       - name: Build the site in the jekyll/builder container
         run: |
           docker run --rm \
@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@main
 
       - name: work around permission issue
-        run: git config --global --add safe.directory /srv/jekyll
+        run: git config --global --add safe.directory "*"
       - name: Build the site in the jekyll/builder container
         run: |
           docker run --rm \
