@@ -2,7 +2,6 @@
 layout: page
 title: "[etc] 실무에서 사용하는 캐시 고도화"
 date: 2023-02-05
-nav_exclude: true
 ---
 
 <pre>
