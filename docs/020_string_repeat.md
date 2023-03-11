@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "[go] string.repeat 세부 구현"
+title: "[go] string.repeat 구현체 분석"
 date: 2023-03-11
 ---
 
