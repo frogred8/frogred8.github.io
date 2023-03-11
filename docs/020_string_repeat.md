@@ -5,12 +5,12 @@ date: 2023-03-11
 ---
 
 <pre>
-요즘 go 구현부를 보다가 string.repeat 구현이 재미있길래 분석해보고, 다른 언어들의 repeat 구현부랑 같이 비교도 잠깐 해봤어. (javascript, rust)
+요즘 go 구현부를 보다가 string.repeat 구현이 재미있길래 분석해봤는데 다른 언어들의 repeat 구현부도 같이 비교해봤어. (javascript, rust)
 
 
 - 개요
 일단 내 시선을 끈 건 strings.go 파일에서 유난히 긴 한 문단의 주석이었어.
-cpu d-cache나 L1 cache도 언급하길래 흥미로웠거든. 링크는 여기.
+그 주석에서 cpu d-cache나 L1 cache도 언급하길래 흥미로웠거든. 링크는 여기.
 https://github.com/golang/go/blob/master/src/strings/strings.go#L565
 
 
