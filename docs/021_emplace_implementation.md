@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "[c++] emplace 세부 구현 분석"
+title: "[c++] emplace 구현 분석"
 date: 2023-05-13
 ---
 
