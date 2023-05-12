@@ -5,24 +5,24 @@ date: 2023-05-11
 ---
 
 <pre>
-c++11에서 새롭게 추가된 emplace는 많이 들어보고 써봤을거야. 모르는 사람들을 위해서 실제 사용 예를 기준으로 알아보면, 보통 vector에 멤버를 추가할 때 push_back을 써서 추가했어.
+c++11에서 새롭게 추가된 emplace는 많이 들어보고 써봤을거야. 근데 왜 예전에는 이렇게 좋은 기능이 없었을까? 에서 시작된 궁금증을 풀어본 글이야.
+
+vector에서 멤버를 추가할 때 보통은 push_back을 써서 추가하게 돼.
 
 vector&lt;Car> cars;
 cars.push_back(Car('tico', 4));
 
-근데 이렇게 쓰면 비효율적이야. 왜냐하면 vector에 멤버 추가될 때에 더미 객체의 복사 생성자+소멸자가 호출되기 때문이야. 그래서 예전에는 생성자가 한번만 호출되도록 포인터만 넣는 방식도 주로 썼어.
+근데 이렇게 쓰면 비효율적이야. 왜냐하면 vector에 멤버 추가될 때에 더미 객체의 복사 생성자+소멸자가 호출되기 때문이야. 그래서 예전에는 생성자가 한번만 호출되도록 포인터만 넣는 방식도 쓰곤 했어.
 
 vector&lt;Car*> cars;
 cars.push_back(new Car('tico', 4));
 
-보통 vector를 관리하는 객체 안에서 insert와 remove를 랩핑한 메소드로 메모리 생성과 삭제를 안보이게 처리하거나 메모리풀이랑 연계해서 쓰기도 했지.
+보통 vector를 관리하는 객체 안에서 insert와 delete를 랩핑한 메소드로 메모리 생성과 삭제를 안보이게 처리하거나 메모리풀이랑 연계해서 쓰기도 했지.
 
-다시 현재로 돌아와서 emplace 기능을 사용해보면, 멤버를 추가할 때 가장 마지막 메모리 주소에 직접 생성하기 때문에 기존의 push_back에 비해 복사 생성자+소멸자가 호출되지 않는 장점이 있어.
+이제 현재로 돌아와서 emplace 기능을 사용해보면, 멤버를 추가할 때 가장 마지막 메모리 주소에 직접 생성하기 때문에 기존의 push_back에 비해 복사 생성자+소멸자가 호출되지 않는 장점이 있어. 이렇게 생성자에 들어가는 인자를 호출해주면 돼.
 
 vector&lt;Car> cars;
 cars.emplace_back('tico', 4);
-
-근데 왜 예전에는 이렇게 좋은 기능이 없었을까? 에서 시작된 궁금증을 풀어본 글이야.
 
 
 - 구현부 분석
@@ -38,7 +38,7 @@ void __split_buffer::emplace_back(_Args&&... __args)
   ++__end_;
 }
 
-emplace_back 구현부를 보면 construct 함수에서 std::forward 를 사용하여 인자를 전달하는데 저 construct 함수는 이렇게 구현되어 있어.
+emplace_back 구현부를 보면 construct 함수에서 allocator, pointer, std::forward로 가변 인자를 전달하는데 저 construct 함수는 이렇게 구현되어 있어.
 
 template &lt;class _Tp, class... _Args>
 static void construct(allocator_type&, _Tp* __p, _Args&&... __args) {
