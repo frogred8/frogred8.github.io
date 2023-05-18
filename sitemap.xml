@@ -10,113 +10,94 @@
 <url>
   <loc>https://frogred8.github.io/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>1.00</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/001_substr_implementation/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/002_v8_builtin_function/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/003_super_property/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/004_v8_engine_history/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/005_compiled_js_file/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/006_api_test_in_console/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/007_use_of_symbol/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/008_keepalive_implementation_node/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/009_keepalive_implementation_nginx/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/010_asmjs_and_wasm/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/011_introduce_llvm/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/012_create_wasm/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/013_create_wasm_2/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/014_cache_line/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/015_prime_numbers/</loc>
   <lastmod>2022-09-22T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/016_type_casting/</loc>
   <lastmod>2022-10-01T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/017_memory_allocation/</loc>
   <lastmod>2022-12-01T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/018_small_string_optimization/</loc>
   <lastmod>2022-12-31T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/019_cache_system_architecture/</loc>
   <lastmod>2023-02-05T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
   <loc>https://frogred8.github.io/docs/020_string_repeat/</loc>
   <lastmod>2023-03-11T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://frogred8.github.io/docs/021_emplace_implementation/
-</loc>
+  <loc>https://frogred8.github.io/docs/021_emplace_implementation/</loc>
   <lastmod>2023-05-11T00:00:00+00:00</lastmod>
-  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://frogred8.github.io/docs/022_forin_implementation/</loc>
+  <lastmod>2023-05-19T00:00:00+00:00</lastmod>
 </url>
 
 </urlset>
