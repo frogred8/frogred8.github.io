@@ -82,7 +82,7 @@ private:
 
 어쨌든 이 로직의 중간 쯤에 위치한 getExecutorFind 함수가 내가 찾던 covered query 조건을 검사하는 곳이었어. 이제 진짜 관심있는 코드로 들어가볼게.
 
-getExecutor(...) {
+StatusWith&lt;std::unique_ptr&lt;PlanExecutor, PlanExecutor::Deleter>> getExecutor(...) {
   ...
   if (!canonicalQuery->getForceClassicEngine() && canonicalQuery->isSbeCompatible()) {
     ...
