@@ -98,61 +98,61 @@ getExecutor(...) {
 
 물론 sbe가 classic query engine보다 성능, 확장성 등 모든 면이 우위라고 하는데 신기술로 갈수록 내부 로직은 복잡해지기 마련이라서 여기서는 그냥 classic 버전인 getClassicExecutor 함수를 볼거야.
 
-StatusWith<std::unique_ptr<PlanExecutor, PlanExecutor::Deleter>> getClassicExecutor(...) {
+StatusWith&lt;std::unique_ptr&lt;PlanExecutor, PlanExecutor::Deleter>> getClassicExecutor(...) {
   ...
   ClassicPrepareExecutionHelper helper{opCtx, collection, ws.get(), canonicalQuery.get(), nullptr, plannerParams};
   auto executionResult = helper.prepare();
 
 이 함수에서는 helper객체를 만들어서 prepare 함수를 호출하고,
 
-StatusWith<std::unique_ptr<ResultType>> prepare() {
+StatusWith&lt;std::unique_ptr&lt;ResultType>> prepare() {
   ...
   auto statusWithMultiPlanSolns = QueryPlanner::plan(*_cq, _plannerParams);
 
 prepare는 드디어 종착점인 QueryPlanner::plan 함수를 호출하게 돼. 이 함수도 600줄쯤 되는데 두 부분으로 나눠서 볼게
 
-StatusWith<std::vector<std::unique_ptr<QuerySolution>>> QueryPlanner::plan(const CanonicalQuery& query, const QueryPlannerParams& params) {
+StatusWith&lt;std::vector&lt;std::unique_ptr&lt;QuerySolution>>> QueryPlanner::plan(const CanonicalQuery& query, const QueryPlannerParams& params) {
   ...
-  std::vector<IndexEntry> fullIndexList;
-  stdx::unordered_set<string> fields;
+  std::vector&lt;IndexEntry> fullIndexList;
+  stdx::unordered_set&lt;string> fields;
   QueryPlannerIXSelect::getFields(query.root(), &fields);
   fullIndexList = QueryPlannerIXSelect::expandIndexes(fields, std::move(fullIndexList));
-  std::vector<IndexEntry> relevantIndices;
+  std::vector&lt;IndexEntry> relevantIndices;
   relevantIndices = QueryPlannerIXSelect::findRelevantIndices(fields, fullIndexList);
 
 여기까지는 인덱스 목록을 가져오는 기능이야. hint 기준으로 인덱스를 가져오고 query에 포함된 field로 연관 인덱스 목록을 가져오고 있어. 
 
-  std::unique_ptr<QuerySolutionNode> solnRoot(QueryPlannerAccess::buildIndexedDataAccess(query, std::move(nextTaggedTree), relevantIndices, params));
+  std::unique_ptr&lt;QuerySolutionNode> solnRoot(QueryPlannerAccess::buildIndexedDataAccess(query, std::move(nextTaggedTree), relevantIndices, params));
   auto soln = QueryPlannerAnalysis::analyzeDataAccess(query, params, std::move(solnRoot));
   return singleSolution(std::move(soln));
 }
 
 QuerySolutionNode 객체를 생성하면서 연관 인덱스를 넘기고, analyzeDataAccess 함수를 실행하는데 이제 거의 다 왔어.
 
-std::unique_ptr<QuerySolution> QueryPlannerAnalysis::analyzeDataAccess(const CanonicalQuery& query, const QueryPlannerParams& params, std::unique_ptr<QuerySolutionNode> solnRoot) {
+std::unique_ptr&lt;QuerySolution> QueryPlannerAnalysis::analyzeDataAccess(const CanonicalQuery& query, const QueryPlannerParams& params, std::unique_ptr&lt;QuerySolutionNode> solnRoot) {
   ...
   if (query.getProj()) {
     solnRoot = analyzeProjection(query, std::move(solnRoot), hasSortStage);
 
 여기서 호출하는 analyzeProjection 함수를 보면,
 
-std::unique_ptr<QuerySolutionNode> analyzeProjection(const CanonicalQuery& query, std::unique_ptr<QuerySolutionNode> solnRoot, const bool hasSortStage) {
+std::unique_ptr&lt;QuerySolutionNode> analyzeProjection(const CanonicalQuery& query, std::unique_ptr&lt;QuerySolutionNode> solnRoot, const bool hasSortStage) {
   const auto& projection = *query.getProj();
   if (projection.isSimple() && projection.isInclusionOnly()) {
     auto coveredKeyObj = produceCoveredKeyObj(solnRoot.get());
-    return std::make_unique<ProjectionNodeCovered>(stage, *query.root(),projection, std::move(coveredKeyObj));
+    return std::make_unique&lt;ProjectionNodeCovered>(stage, *query.root(),projection, std::move(coveredKeyObj));
   }
 
 드디어 covered query 생성하는 곳에 도착했어. 여기를 보면 projection이 내부 멤버만으로 가능한지 체크해서 ProjectionNodeCovered 클래스 객체를 전달하게 돼. 
 
 이렇게 생성된 쿼리 객체는 여태까지 타고 왔던 저 위의 콜스택으로 전달되고, 객체가 stage builder로 가면 아래처럼 분기 처리하면서 진짜 구현체인 ProjectionStageCovered 객체를 생성해 주는거야.
 
-std::unique_ptr<PlanStage> ClassicStageBuilder::build(const QuerySolutionNode* root) {
+std::unique_ptr&lt;PlanStage> ClassicStageBuilder::build(const QuerySolutionNode* root) {
   switch (root->getType()) {
     case STAGE_PROJECTION_COVERED: {
-      auto pn = static_cast<const ProjectionNodeCovered*>(root);
+      auto pn = static_cast&lt;const ProjectionNodeCovered*>(root);
       auto childStage = build(pn->children[0].get());
-      return std::make_unique<ProjectionStageCovered>(...);
+      return std::make_unique&lt;ProjectionStageCovered>(...);
 
 저 객체의 구현부를 보면 꽤 간단한 편이야.
 
