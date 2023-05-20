@@ -117,7 +117,7 @@ void CopyObjectToObjectElements(...) {
 1) JSObject는 키 타입에 따라 string은 property, number는 index로 분리한다.
 2) index는 정렬이 기본이고, 만약 정렬이 안되어 있으면 실시간으로 정렬해서 반환하기도 한다.
 3) for-in으로 반환하는 enumerable 객체는 number + string 키 타입 순으로 가져와서 전달한다.
-4) 예제 출력 결과에서 '001' 키는 number 타입처럼 보이지만 사실은 string 타입이라서 마지막 순서로 출력된다.
+4) 예제 출력 결과에서 '101', '201', '301' 키는 number 타입이라 나란히 정렬되어 출력되고 '001' 키는 number 타입처럼 보이지만 사실은 string 타입이라서 마지막 순서로 출력된다.
 
 지면이 작아 함축된 부분이 많은데 더 자세한 내용은 v8 코드 받아서 저 키워드로 검색해보면 될거야.
 
