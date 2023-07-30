@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "[redis] proxy의 multikey 구현"
+title: "[redis] proxy의 multikey 명령 구현 분석"
 date: 2023-07-30
 ---
 
@@ -15,11 +15,12 @@ del a1 a2 a3 a4
 
 a1, a2, a3, a4키를 지우는 간단한 명령이지만 저 키들은 여러 인스턴스에 흩어져있기 때문에 다른 명령처럼 단순히 하나의 인스턴스로 전달한다고 완료되지 않는 명령이잖아? 이걸 각 proxy 구현체들은 어떻게 풀어냈을까 하는게 궁금했어.
 
+
 - predixy
 일단 predixy를 먼저 볼거야. 얘는 c++로 이루어져 있고, redis sentinel/cluster에 대한 지원을 하고 있어. 초기화나 기타 로직이 간결한 편이야.
 https://github.com/joyieldInc/predixy
 
-worker thread 개수를 설정 파일에서 조정이 가능한데 이런 식으로 Handler 클래스가 실제 스레드에서 돌아가는 로직을 구현하게 돼
+worker thread 개수를 설정 파일에서 조정이 가능한데 이런 식으로 Handler 클래스가 실제 스레드에서 돌아가는 로직을 구현하게 돼.
 
 bool Proxy::init() {
   ...
@@ -129,7 +130,7 @@ ex) mget a1 a2 a3 -> mget a1, mget a2, mget a3 세개 생성
 - twemproxy
 nutcracker라는 예전 이름으로 불리기도 하는데, c로 구성되어 있고 memcached, redis를 지원하고 있어. twitter에서 사용하는 것으로 더 널리 알려진 proxy야. 2015년 이후로 계속 업데이트가 없길래 predixy로 넘어왔는데 2년 전에 뭔가 릴리즈되긴 했네.
 
-twemproxy는 대-기업에서 공개한 라이브러리라 그런지 문서의 양이나 질도 좋고, 코드나 구조도 매우 깔끔한 편이야. 특히 c++처럼 template 떡칠이 없어서 코드 따라가기도 수월한게 장점이야. 이제 코드를 보면,
+twemproxy는 대-기업에서 공개한 라이브러리라 그런지 문서의 양이나 질도 좋고, 코드나 구조도 매우 깔끔한 편이야. 특히 c++처럼 template 떡칠이 없어서 코드 따라가기도 수월한 것도 장점이고. 이제 코드를 보면,
 
 void req_recv_done(...)
 {
