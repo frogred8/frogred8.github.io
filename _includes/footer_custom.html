@@ -1,4 +1,21 @@
 {%- if site.footer_content -%}
-  <p class="text-small text-grey-dk-100 mb-0">{{ site.footer_content }}</p>
+<script src="https://utteranc.es/client.js"
+        repo="frogred8/blog-comments"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin="anonymous"
+        >
+</script>
+<hr style="margin-top: 4px; margin-bottom: 24px;">
+<div style="width: 50%; float: left;">
+    <a href="#top" id="back-to-top">{{ site.back_to_top_text }}</a>
+    <p class="text-small text-grey-dk-100 mb-0">{{ site.footer_content }}</p>
+  </div>
+  <div style="width: 50%; float: right;" align="right">
+    <a href="https://www.buymeacoffee.com/frogred8" style=""><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=frogred8&button_colour=FF5F5F&font_colour=ffffff&font_family=Comic&outline_colour=000000&coffee_colour=FFDD00" style="width: 50%; height: auto;"/></a>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
 {%- endif -%}
-<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="frogred8" data-description="Support me on Buy me a coffee!" data-message="" data-color="#FF5F5F" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
