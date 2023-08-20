@@ -17,3 +17,5 @@ permalink: /
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5261314982859092"
      crossorigin="anonymous"></script>
+
+<hr>

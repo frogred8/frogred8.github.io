@@ -152,7 +152,6 @@ layout: table_wrappers
           {%- include footer_custom.html -%}
         {% endcapture %}
         {% if footer_custom != "" or site.last_edit_timestamp or site.gh_edit_link %}
-          <hr style="margin-bottom: 24px;">
           <footer>
             {% if site.back_to_top %}
               <p><a href="#top" id="back-to-top">{{ site.back_to_top_text }}</a></p>
