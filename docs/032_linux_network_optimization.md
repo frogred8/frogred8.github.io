@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "[etc] linux 6.8의 tcp optimization"
+title: "[etc] linux kernel 6.8의 tcp optimization"
 date: 2024-03-10
 ---
 
@@ -29,7 +29,8 @@ https://www.zdnet.com/article/linux-kernel-6-6-is-the-next-long-term-support-rel
 아래 6.8 업데이트를 보면 tcp 커넥션에 대한 성능이 최대 40% 개선되었다는 내용이 있는데, 특히 intel보단 amd 아키텍쳐에서 대단히 큰 개선을 보여주고 있어.
 https://www.phoronix.com/news/Linux-6.8-Networking
 
-최적화의 큰 방향은 network 사용 시 접근하는 변수들의 cacheline을 적게 유지하면서, cache coherence (캐시 일관성)을 높이는 수정을 했다고 하는데, 이 글에서는 cacheline 감소와 cache coherence 증가, 그리고 왜 amd 아키텍쳐에서 더 큰 개선이 이뤄졌는지 세 가지로 살펴볼게.
+최적화의 큰 방향은 network 사용 시 접근하는 변수들의 cacheline을 적게 유지하면서, cache coherence (캐시 일관성)을 높이는 수정을 했다고 해. 
+그래서 이 글에서는 cacheline 감소와 cache coherence 증가, 그리고 왜 amd 아키텍쳐에서 더 큰 개선이 이뤄졌는지 세 가지를 살펴볼게.
 
 - cacheline 감소
 최적화 작업에서 가장 중요한 건 현재 상태의 측정과 평가가 우선 진행되어야 하는데 역시 커널 개발자분이라 조사를 아주 잘 해놨더라고. 6.5 커널 기준으로 분석한 커밋인데 network 내의 각 변수가 read_mostly 인지, write_mostly 인지 싹다 정리해서 올려놨으니 한번 구경해 봐.
