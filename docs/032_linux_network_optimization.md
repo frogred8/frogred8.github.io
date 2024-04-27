@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "[etc] linux kernel 6.8의 tcp optimization"
+title: "[network] linux kernel 6.8의 tcp optimization"
 date: 2024-03-10
 ---
 
