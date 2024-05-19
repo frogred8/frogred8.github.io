@@ -109,7 +109,7 @@ kafka는 자바로 만들어졌어. jvm위에서 돌아가다보니 유저-커�
 
 그런데 커널에서 제공하는 sendfile 인터페이스를 이용하면 데이터를 읽을 때마다 유저 영역으로 복사할 필요없이 바로 보낼 수 있단 말이지? 그래서 kafka는 이를 활용하여 consumer가 데이터를 요청할 때마다 유저 영역에 복사해서 내보내는 방식이 아닌, sendfile을 활용하여 쌓인 메시지를 네트워크로 바로 전송하도록 구현했어.
 
-java 4버전에 nio (Non-blocking IO) 라는 패키지가 추가되었는데 여기서 transferTo 함수가 이 sendfile을 랩핑해놓은 거라고 보면 돼. ibm문서 중에 기존 방식과 transferTo를 활용한 방식을 비교한 예제가 있는데 65% 더 빠른 결과를 보여주기도 했어.
+java 4버전에 nio (New IO) 라는 패키지가 추가되었는데 여기서 transferTo 함수가 이 sendfile을 랩핑해놓은 거라고 보면 돼. ibm문서 중에 기존 방식과 transferTo를 활용한 방식을 비교한 예제가 있는데 65% 더 빠른 결과를 보여주기도 했어.
 https://developer.ibm.com/articles/j-zerocopy
 
 관련해서 kafka 소스 코드도 살짝 소개해보고 싶어서 좀 봤는데 nio패키지의 Channel, Selector의 일반적인 사용들이 대부분이라 그냥 혼자 분석만 하고 말았다는 후문.
