@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "[node] getaddrinfo 세부 구현 분석"
+title: "[network] getaddrinfo 세부 구현 분석 (1)"
 date: 2024-10-04
 ---
 
@@ -201,4 +201,4 @@ posix의 구현부를 보면 netdb.h 파일을 포함하고 있는데 여기부�
 
 
 이전글: https://frogred8.github.io/
-#frogred8 #node #getaddrinfo
+#frogred8 #network #getaddrinfo
