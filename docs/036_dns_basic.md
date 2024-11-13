@@ -95,12 +95,12 @@ google: 43ms
 - root 서버
 RR에서는 먼저 root 서버의 목록을 알아와야 하는데 이 목록은 보통 RR 설정 파일을 통해 갱신되는 방식을 쓴다고 해. root 서버 목록은 이런 식으로 되어있어.
 
-.			518400	IN	NS	a.root-servers.net.
-.			518400	IN	NS	b.root-servers.net.
-a.root-servers.net.	518400	IN	A	198.41.0.4
-a.root-servers.net.	518400	IN	AAAA	2001:503:ba3e:0:0:0:2:30
-b.root-servers.net.	518400	IN	A	170.247.170.2
-b.root-servers.net.	518400	IN	AAAA	2801:1b8:10:0:0:0:0:b
+.			518400	IN 	NS	a.root-servers.net.
+.			518400	IN 	NS	b.root-servers.net.
+a.root-servers.net.	518400	IN 	A	198.41.0.4
+a.root-servers.net.	518400	IN 	AAAA	2001:503:ba3e:0:0:0:2:30
+b.root-servers.net.	518400	IN 	A	170.247.170.2
+b.root-servers.net.	518400	IN 	AAAA	2801:1b8:10:0:0:0:0:b
 ...
 
 NS(Name Server), A레코드(ipv4), AAAA레코드(ipv6) 등의 정보를 나열한 root 서버가 A-M까지 총 13개가 등록되어 있어. 이 13개의 root 서버는 서로 동일한 정보를 가지고 있어서 만약 하나의 서버가 다운된다 하더라도 다른 서버가 보완해주는데 사실 그럴 일은 거의 없을거야. 왜냐하면 한 개의 서버군만 해도 전세계에 흩어져 수십개의 다중화가 되어있어서 동시에 다운될 확률이 없다시피 할테니까 말이야. 
@@ -137,26 +137,26 @@ godaddy, cloudflare, 가비아, 후이즈 같은 도메인 업체에서 구입�
 
 // 개인 도메인
 ❯ dig NS lordz.io
-lordz.io.		861	IN	NS	linda.ns.cloudflare.com.
-lordz.io.		861	IN	NS	clark.ns.cloudflare.com.
-clark.ns.cloudflare.com. 85051	IN	A	108.162.193.87
-clark.ns.cloudflare.com. 85051	IN	A	172.64.33.87
+lordz.io.		861	IN 	NS	linda.ns.cloudflare.com.
+lordz.io.		861	IN 	NS	clark.ns.cloudflare.com.
+clark.ns.cloudflare.com. 85051	IN 	A	108.162.193.87
+clark.ns.cloudflare.com. 85051	IN 	A	172.64.33.87
 ...
 
 // 기업 도메인
 ❯ dig NS google.com
-google.com.		114424	IN	NS	ns3.google.com.
-google.com.		114424	IN	NS	ns2.google.com.
+google.com.		114424	IN 	NS 	ns3.google.com.
+google.com.		114424	IN 	NS 	ns2.google.com.
 ...
-ns1.google.com.		116338	IN	A	216.239.32.10
-ns2.google.com.		137282	IN	A	216.239.34.10
+ns1.google.com.		116338 	IN 	A	216.239.32.10
+ns2.google.com.		137282	IN 	A	216.239.34.10
 
 ❯ dig NS naver.com
-naver.com.		43372	IN	NS	ns2.naver.com.
-naver.com.		43372	IN	NS	ns1.naver.com.
+naver.com.		43372	IN 	NS	ns2.naver.com.
+naver.com.		43372	IN 	NS	ns1.naver.com.
 ...
-ns1.naver.com.		12796	IN	A	125.209.248.6
-ns2.naver.com.		12850	IN	A	125.209.249.6
+ns1.naver.com.		12796	IN 	A	125.209.248.6
+ns2.naver.com.		12850	IN 	A	125.209.249.6
 
 
 - dns 쿼리 여정의 끝
