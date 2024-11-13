@@ -79,7 +79,7 @@ ping은 그저 icmp 요청에 대한 응답일 뿐 dns 서버 자체를 의미�
 kt: 11ms
 google: 43ms
 
-로컬 dns 캐시나 그런거 없이 순수하게 dns 서버만 변경 후 여러번 테스트해서 나온 평균값이야. 역시 예상대로 국내 dns가 구글 dns보다 빨랐어. 여기서 더 나아가서, 현재 연결된 ISP 업체와 동일한 dns 서버는 더 빠르지 않을까 싶었는데 (예를 들어 kt망이면 kt dns가, sk망이면 sk dns가 제일 빠르다던가..) 실제로 테스트해보니 별다른 차이가 없긴 하더라.
+로컬 dns 캐시나 그런거 없이 순수하게 dns 서버만 변경 후 여러번 테스트해서 나온 평균값이야. 역시 예상대로 국내 dns가 구글 dns보다 빨랐어. 여기서 더 나아가서, 현재 연결된 ISP 업체와 동일한 dns 서버는 더 빠르지 않을까 싶었는데 (예를 들어 kt망이면 kt dns가, sk망이면 sk dns가 제일 빠르다던가..) kt망으로 kt,sk dns 번갈아가며 테스트해봐도 별다른 차이가 없어서 증명은 못했네.
 과거에 구글 dns가 더 빠르다고 소문난 이유는 국내망에서 거치는 특정 라우터가 안좋았거나 국내 dns 서버 자체가 너무 느렸던게 아닐까 싶어. 이제는 믿고 쓰자구.
 
 
@@ -151,12 +151,12 @@ google.com.		114424	IN	NS	ns2.google.com.
 ns1.google.com.		116338	IN	A	216.239.32.10
 ns2.google.com.		137282	IN	A	216.239.34.10
 
-❯ dig NS toss.im
-toss.im.		116102	IN	NS	ns-538.awsdns-03.net.
-toss.im.		116102	IN	NS	ns-16.awsdns-02.com.
+❯ dig NS naver.com
+naver.com.		43372	IN	NS	ns2.naver.com.
+naver.com.		43372	IN	NS	ns1.naver.com.
 ...
-ns-16.awsdns-02.com.	116102	IN	A	205.251.192.16
-ns-538.awsdns-03.net.	116102	IN	A	205.251.194.26
+ns1.naver.com.		12796	IN	A	125.209.248.6
+ns2.naver.com.		12850	IN	A	125.209.249.6
 
 
 - dns 쿼리 여정의 끝
