@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "[network] dns 쿼리가 떠나는 여정"
+title: "[network] dns query의 여정"
 date: 2024-11-13
 ---
 
