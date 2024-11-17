@@ -5,7 +5,7 @@ date: 2024-11-17
 ---
 
 <pre>
-이전글에서는 node -> getaddrinfo 시스템 함수 호출까지 바인딩되는 부분을 알아봤는데, 여기서는 getaddrinfo 함수랑 nsswitch 시스템, 그리고 dns 요청에 대한 전반적인 흐름을 살펴볼게. 곁다리 정보도 같이 다루다보니 꽤 길어졌는데 잘 모르는 단락은 그냥 넘어가도 될거야.
+이전글에서는 node -> getaddrinfo 시스템 함수 호출까지 바인딩되는 부분을 알아봤는데, 여기서는 getaddrinfo 시스템 함수랑 nsswitch 시스템, 그리고 dns 요청에 대한 전반적인 흐름을 살펴볼게. 곁다리 정보도 같이 다루다보니 꽤 길어졌는데 잘 모르는 단락은 그냥 넘어가도 될거야.
 이전글: https://frogred8.github.io/docs/035_getaddrinfo_implementation_node/
 
 getaddrinfo 함수의 posix 구현체는 GNU C 라이브러리에 있는데 glibc 프로젝트를 받아보니 쉽게 찾을 수 있었어.
