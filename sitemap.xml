@@ -155,5 +155,9 @@
   <loc>https://frogred8.github.io/docs/036_dns_basic/</loc>
   <lastmod>2024-11-13T00:00:00+00:00</lastmod>
 </url>
+<url>
+  <loc>https://frogred8.github.io/docs/037_getaddrinfo_implementation_glibc/</loc>
+  <lastmod>2024-11-17T00:00:00+00:00</lastmod>
+</url>
 
 </urlset>
