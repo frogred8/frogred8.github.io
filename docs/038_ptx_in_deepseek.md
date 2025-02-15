@@ -109,7 +109,7 @@ smid 외에 warpid, tid, gridid도 얻어올 수 있고, async 명령도 존재�
 
 - 잡설 및 소회
 국내에는 펌글만 많고 정보가 없어서 해외 기준으로 많이 찾아봤는데 글을 마무리하다가 네이버에서 양질의 좋은 기사를 하나 봤어.
-https://contents.premium.naver.com/themiilk/business/contents/250212075634392nb
+https://naver.me/5mIoUqAX
 여기서 말하길, deepseek팀은 이전에 금융권의 HFT(High-frequency trading, 고빈도 매매)를 개발하던 팀이라 대역폭이나 지연 시간 최적화에 노하우가 많은 팀이었다고 해.
 그걸 알고나서 보니 이게 혜성처럼 나타난 기술은 아니고 숙련된 팀의 기술력으로 이뤄낸 성과라는게 참 생각할 부분이 많았어. 이런 세계적인 성과들은 개인의 기술력이 아닌 팀 단위의 기술력이 꼭 필요하구나 싶고..
 nvidia의 cuda외에 amd의 ROCm이랑 HIP도 같이 다뤄보려고 며칠동안 살펴봤는데 아직 글로 쓸 정도의 깊이까진 도달하지 못해서 나중에나 써봐야지 싶네.
