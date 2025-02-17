@@ -39,19 +39,19 @@ low-level 최적화를 시도할 수 밖에 없던 배경과 ptx가 뭔지 알�
 - gpu 구성 및 최적화 방식
 일단 gpu가 어떻게 구성되어 있는지 알아야하니 아래 h800의 스펙을 한줄씩 해석해보면,
 
-Shading Units: 16896
+* Shading Units: 16896
   병렬 연산을 처리하는 코어 개수
-TMUs: 528
+* TMUs: 528
   Texture Mapping Unit. 모델에 이미지를 입히는 가속화 코어
-ROPs: 24
+* ROPs: 24
   Raster Operations Processor. 렌더링된 최종 이미지의 깊이 테스트, 프레임 버퍼 쓰기 등의 작업 수행
-SM Count: 132
+* SM Count: 132
   Streaming Multiprocessor. Shading Unit과 TMU, L1 Cache 등을 포함하는 독립적인 연산 단위
-Tensor Cores: 528
+* Tensor Cores: 528
   딥러닝에 특화된 행렬 연산의 가속화 코어
-L1 Cache: 256 KB (per SM)
+* L1 Cache: 256 KB (per SM)
   SM마다 하나씩 할당된 캐시 메모리
-L2 Cache: 50 MB
+* L2 Cache: 50 MB
   모든 SM에서 공유하는 2차 캐시 메모리
 
 우리가 보통 cuda 코어개수라고 부르는게 Shading Unit(이하 SU)인데 저 많은 16896개가 개별적으로 작동하진 않고, 하나의 SM(Streaming Multiprocessor)마다 SU(128개), TMU(4개), Tensor(4개)가 포함된 구성 요소인거야.
@@ -69,12 +69,12 @@ https://github.com/deepseek-ai/DeepSeek-V3/blob/main/DeepSeek_V3.pdf
 주요 챕터는 Efficient Implementation of Cross-Node All-to-All Communication 이었는데 여기에서 필요한 내용만 요약해볼게.
 
 1. (h800의 NVLink 개수는 최대 8개이고 이만큼의 그래픽 카드를 NVLink로 연결한 걸 하나의 노드라고 정의함) 노드 내 통신은 NVLink로 연결. 대역폭은 160GB/s
-1. 클러스터(노드-노드간) 연결은 IB(InfiniBand)로 연결되어 있고, 대역폭은 50GB/s
-4. IB가 NVLink보다 상대적으로 느리기 때문에 질의가 노드를 벗어나지 않도록 토큰을 최대 4개 노드에 중복하여 저장하여 최대한 노드 내에서 검색되도록 하고, 각 토큰은 대상 전문가에게 즉시 전달 (여기는 deepseek AI 전략인 MoE를 알아야 하니 여기서는 생략)
-5. 20개의 고정된 SM을 10개의 통신 채널로 나눠서 듀얼 파이프라이닝 구성
-6. warp 특수화 처리로 디스패칭 및 결합 과정을 처리하고, 각 통신 작업에 할당된 warp 수를 동적으로 조정
-7. 디스패칭 및 결합 과정이 계산 스트림과 겹치도록 설계하여 유휴시간이 최소화되도록 구성 (cpu 파이프라이닝 RAW hazard 해결책 느낌?)
-8. 데이터에 맞춤형 PTX 명령셋을 제공하고 통신 청크 크기를 자동 조정하여 L2 캐시 사용량이나 다른 SM에 대한 간섭 감소
+2. 클러스터(노드-노드간) 연결은 IB(InfiniBand)로 연결되어 있고, 대역폭은 50GB/s
+3. IB가 NVLink보다 상대적으로 느리기 때문에 질의가 노드를 벗어나지 않도록 토큰을 최대 4개 노드에 중복하여 저장하여 최대한 노드 내에서 검색되도록 하고, 각 토큰은 대상 전문가에게 즉시 전달 (여기는 deepseek AI 전략인 MoE를 알아야 하니 여기서는 생략)
+4. 20개의 고정된 SM을 10개의 통신 채널로 나눠서 듀얼 파이프라이닝 구성
+5. warp 특수화 처리로 디스패칭 및 결합 과정을 처리하고, 각 통신 작업에 할당된 warp 수를 동적으로 조정
+6. 디스패칭 및 결합 과정이 계산 스트림과 겹치도록 설계하여 유휴시간이 최소화되도록 구성 (cpu 파이프라이닝 RAW hazard 해결책 느낌?)
+7. 데이터에 맞춤형 PTX 명령셋을 제공하고 통신 청크 크기를 자동 조정하여 L2 캐시 사용량이나 다른 SM에 대한 간섭 감소
 
 warp 개념은 설명을 안했는데 어차피 구글링하면 그림과 함께 설명한 내용이 많으니 여기서는 생략할게.
 
