@@ -50,3 +50,17 @@ https://github.com/frogred8/duckov_weightviewer
 
 이전글: https://frogred8.github.io/
 #frogred8 #duckov #mod
+
+</pre>
+
+<br><br>
+steam workshop(창작마당)<br>
+<img src="https://i.imgur.com/vcAdafU.png">
+
+<br><br>
+계속 올라가는 구독자<br>
+<img src="https://i.imgur.com/dgl7zGh.png">
+
+<br><br>
+실제 개발환경<br>
+<img src="https://i.imgur.com/xUTMUoY.png">
