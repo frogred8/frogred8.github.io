@@ -68,5 +68,9 @@ MDN 페이지에서 번역 기여를 조금 해본 적이 있는데 몇번 하�
 
 </pre>
 
+<br>
+100% 완성한 모습<br>
 <img src="https://i.imgur.com/VPEvoet.png">
+<br>
+crowdin에서 기여도는 이렇게 표시됨<br>
 <img src="https://i.imgur.com/3bMyvBh.png">
