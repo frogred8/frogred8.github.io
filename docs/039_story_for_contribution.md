@@ -65,3 +65,8 @@ MDN 페이지에서 번역 기여를 조금 해본 적이 있는데 몇번 하�
 
 이전글: https://frogred8.github.io/
 #frogred8 #duckov #dnspy
+
+</pre>
+
+<img src="https://i.imgur.com/VPEvoet.png">
+<img src="https://i.imgur.com/3bMyvBh.png">
