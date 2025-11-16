@@ -5,7 +5,7 @@ date: 2024-11-17
 ---
 
 <pre>
-이전글에서는 node -> getaddrinfo 시스템 함수 호출까지 바인딩되는 부분을 알아봤는데, 여기서는 getaddrinfo 시스템 함수랑 nsswitch 시스템, 그리고 dns 요청에 대한 전반적인 흐름을 살펴볼게. 곁다리 정보도 같이 다루다보니 꽤 길어졌는데 잘 모르는 단락은 그냥 넘어가도 될거야.
+이전 글에서는 node -> getaddrinfo 시스템 함수 호출까지 바인딩되는 부분을 알아봤는데, 여기서는 getaddrinfo 시스템 함수랑 nsswitch 시스템, 그리고 dns 요청에 대한 전반적인 흐름을 살펴볼게. 곁다리 정보도 같이 다루다보니 꽤 길어졌는데 잘 모르는 단락은 그냥 넘어가도 될거야.
 이전글: https://frogred8.github.io/docs/035_getaddrinfo_implementation_node/
 
 getaddrinfo 함수의 posix 구현체는 GNU C 라이브러리에 있는데 glibc 프로젝트를 받아보니 쉽게 찾을 수 있었어.
@@ -207,7 +207,7 @@ void **fptr = pointers;
 
 
 - get_nss_addresses 함수 구성
-위에서 nss 시스템을 깊이있게 설명한 이유는 dns를 가져오는 가장 핵심 로직이라서 그래. getaddrinfo -> gaih_inet -> get_nss_addresses -> __nss_lookup_function 으로 이어지거든.
+위에서 nss 시스템을 깊이있게 설명한 이유는 dns를 가져오는 가장 핵심 로직이라서 그래. 함수가 getaddrinfo -> gaih_inet -> get_nss_addresses -> __nss_lookup_function 으로 이어지거든.
 
 이제 다시 메인 함수로 돌아와서, get_nss_addresses 함수는 본격적으로 추상화된 함수 구현부를 호출하기 때문에 분석이 꽤 까다로운 부분이었어. 이 함수 플로우를 대략적으로 설명하면, 
 
