@@ -140,6 +140,23 @@ https://dnsviz.net/d/www.google.com/dnssec/
 3) 루트키는 이중 금고에 물리적으로 격리되어 있고, 인증은 전 세계 여러 사람들을 통해 분리되어 변조 및 탈취가 불가능한 시스템이다.
 4) 디지털 세상을 지탱하는 최상위 인증서가 가장 아날로그스러운 절차와 감시를 통해 검증되고 있는게 아이러니.
 
-
 이전글: https://frogred8.github.io/
 #frogred8 #network #dns #ceremony
+
+</pre>
+<br><br>
+참석자 명단과 서명<br>
+<img src="https://i.imgur.com/CaY4R0R.png">
+
+<br><br>
+서명식 진행 스크립트<br>
+<img src="https://i.imgur.com/Cqh3LUx.png">
+
+<br><br>
+도식화된 dns<br>
+<img src="https://i.imgur.com/wtqnYkg.png">
+
+
+
+
+
