@@ -3,3 +3,4 @@ gemspec
 
 gem "webrick", "~> 1.7"
 gem "sass", "~> 3.7.4"
+gem 'sass-embedded', '~> 1.99.0'
