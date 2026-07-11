@@ -40,7 +40,7 @@ async function translateFile(sourcePath, targetPath) {
   if (title) {
     const translatedTitle = await translateTitleToEnglishWithCodex(title.value);
     output += source.slice(0, title.valueStart);
-    output += escapeFrontMatterTitle(translatedTitle.trim(), title.quote);
+    output += escapeFrontMatterTitle(normalizeTitle(translatedTitle.trim(), title.value), title.quote);
     cursor = title.valueEnd;
   }
 
@@ -184,6 +184,55 @@ function escapeFrontMatterTitle(title, quote) {
   }
 
   return title.replace(/"/g, '\\"');
+}
+
+function normalizeTitle(title, sourceTitle) {
+  const translated = splitTitle(title);
+  const source = splitTitle(sourceTitle);
+  const tag = source.tag || translated.tag;
+  const body = sentenceCase(translated.body, sourceTitle);
+
+  return tag ? `[${tag}] ${body}` : body;
+}
+
+function splitTitle(title) {
+  const match = title.match(/^\[([^\]]+)\]\s*(.*)$/);
+
+  if (!match) {
+    return { tag: null, body: title };
+  }
+
+  return { tag: match[1], body: match[2] };
+}
+
+function sentenceCase(text, sourceTitle) {
+  const lower = text.toLowerCase();
+  const restored = restoreSourceEnglishCase(lower, sourceTitle);
+  const startsWithSourceToken = sourceEnglishTokens(sourceTitle).some((token) =>
+    restored.startsWith(token),
+  );
+
+  return startsWithSourceToken
+    ? restored
+    : restored.replace(/^([a-z])/, (letter) => letter.toUpperCase());
+}
+
+function restoreSourceEnglishCase(text, sourceTitle) {
+  let output = text;
+  const tokens = sourceEnglishTokens(sourceTitle);
+
+  for (const token of tokens) {
+    const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    output = output.replace(new RegExp(escaped, "gi"), token);
+  }
+
+  return output;
+}
+
+function sourceEnglishTokens(sourceTitle) {
+  return [...new Set(sourceTitle.match(/[A-Za-z][A-Za-z0-9.+#-]*/g) || [])].sort(
+    (a, b) => b.length - a.length,
+  );
 }
 
 async function translateTitleToEnglishWithCodex(title) {
