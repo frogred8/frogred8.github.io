@@ -42,7 +42,11 @@ layout: table_wrappers
 
   <div class="side-bar">
     <div class="site-header">
-      <a href="{{ '/' | absolute_url }}" class="site-title lh-tight">{% include title.html %}</a>
+      <a href="{{ '/' | relative_url }}" class="site-title lh-tight">{% include title.html %}</a>
+      <div class="sidebar-language-toggle" role="group" aria-label="Language">
+        <button type="button" class="sidebar-language-toggle-button" data-language-toggle="ko">KO</button>
+        <button type="button" class="sidebar-language-toggle-button" data-language-toggle="en">EN</button>
+      </div>
       <a href="#" id="menu-button" class="site-button">
         <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-menu"></use></svg>
       </a>
@@ -62,7 +66,14 @@ layout: table_wrappers
           {% endif %}
         {% endfor %}
       {% else %}
-        {% include nav.html pages=site.html_pages %}
+        {% assign korean_pages = site.html_pages | where_exp: "item", "item.url contains '/docs/'" %}
+        {% assign english_pages = site.html_pages | where_exp: "item", "item.url contains '/docs_en/'" %}
+        <div data-language-nav="ko">
+          {% include nav.html pages=korean_pages %}
+        </div>
+        <div data-language-nav="en" hidden>
+          {% include nav.html pages=english_pages %}
+        </div>
       {% endif %}
     </nav>
   </div>
@@ -195,5 +206,94 @@ layout: table_wrappers
       <div class="search-overlay"></div>
     {% endif %}
   </div>
+  <script>
+    (function () {
+      var storageKey = 'frogred8:language';
+      var languages = navigator.languages || [navigator.language || navigator.userLanguage || 'ko'];
+      var isKorean = languages.some(function (language) {
+        return language && language.toLowerCase().indexOf('ko') === 0;
+      });
+      var selectedLanguage = localStorage.getItem(storageKey) || (isKorean ? 'ko' : 'en');
+
+      function setLanguage(language) {
+        selectedLanguage = language === 'ko' ? 'ko' : 'en';
+        localStorage.setItem(storageKey, selectedLanguage);
+
+        document.querySelectorAll('[data-home-description], [data-doc-list], [data-language-nav]').forEach(function (element) {
+          var elementLanguage = element.getAttribute('data-home-description') ||
+            element.getAttribute('data-doc-list') ||
+            element.getAttribute('data-language-nav');
+          element.hidden = elementLanguage !== selectedLanguage;
+        });
+
+        document.querySelectorAll('[data-language-toggle]').forEach(function (button) {
+          var isActive = button.getAttribute('data-language-toggle') === selectedLanguage;
+          button.classList.toggle('active', isActive);
+          button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+      }
+
+      document.querySelectorAll('[data-language-toggle]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var language = button.getAttribute('data-language-toggle');
+          setLanguage(language);
+          redirectToSelectedLanguage(language);
+        });
+      });
+
+      setLanguage(selectedLanguage);
+
+      function redirectToSelectedLanguage(language) {
+        var pathname = window.location.pathname;
+        var targetPathname = null;
+
+        if (language === 'en' && pathname.indexOf('/docs/') === 0) {
+          targetPathname = pathname.replace(/^\/docs\//, '/docs_en/');
+        }
+
+        if (language === 'ko' && pathname.indexOf('/docs_en/') === 0) {
+          targetPathname = pathname.replace(/^\/docs_en\//, '/docs/');
+        }
+
+        if (targetPathname && targetPathname !== pathname) {
+          window.location.href = targetPathname + window.location.search + window.location.hash;
+        }
+      }
+    }());
+  </script>
+  <style>
+    .sidebar-language-toggle {
+      margin-left: auto;
+      margin-right: 0.75rem;
+      display: flex;
+      flex: 0 0 auto;
+    }
+
+    .sidebar-language-toggle-button {
+      min-width: 2.25rem;
+      padding: 0.25rem 0.4rem;
+      border: 1px solid #44434d;
+      border-right: 0;
+      font-size: 0.75rem;
+      line-height: 1.2;
+      color: #f5f6fa;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .sidebar-language-toggle-button:first-child {
+      border-radius: 6px 0 0 6px;
+    }
+
+    .sidebar-language-toggle-button:last-child {
+      border-right: 1px solid #44434d;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .sidebar-language-toggle-button.active {
+      color: #111318;
+      background: #f5f6fa;
+    }
+  </style>
 </body>
 </html>
