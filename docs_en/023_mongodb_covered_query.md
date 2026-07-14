@@ -179,3 +179,4 @@ I did not include that code here, but in the constructor, it adds only the field
 
 Previous post: https://frogred8.github.io/
 #frogred8 #mongodb #covered_query
+</pre>

@@ -122,3 +122,4 @@ void CopyObjectToObjectElements(...) {
 지면이 작아 함축된 부분이 많은데 더 자세한 내용은 v8 코드 받아서 저 키워드로 검색해보면 될거야.
 
 #frogred8 #javascript #v8 #forin
+</pre>

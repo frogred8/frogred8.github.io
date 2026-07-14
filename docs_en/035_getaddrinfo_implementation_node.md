@@ -202,3 +202,4 @@ I have also finished analyzing the actual POSIX getaddrinfo implementation to so
 
 Previous post: https://frogred8.github.io/
 #frogred8 #network #getaddrinfo #dns
+</pre>

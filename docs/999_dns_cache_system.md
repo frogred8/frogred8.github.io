@@ -224,3 +224,4 @@ _nss_dns_gethostbyname3_r -> ... -> __res_context_send 함수까지 오면 dns �
 
 이전글: https://frogred8.github.io/
 #frogred8 #network #getaddrinfo
+</pre>

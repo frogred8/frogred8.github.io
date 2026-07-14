@@ -137,3 +137,4 @@ WASM Example-1 https://frogred8.github.io/docs/012_create_wasm/
 WASM Example-2 https://frogred8.github.io/docs/013_create_wasm_2/ (this post)
 
 #frogred8 #WASM
+</pre>

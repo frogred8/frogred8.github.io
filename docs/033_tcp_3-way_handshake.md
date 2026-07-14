@@ -177,3 +177,4 @@ TSecr: 330256684
 
 이전글: https://frogred8.github.io/
 #frogred8 #network #tcp #handshake
+</pre>

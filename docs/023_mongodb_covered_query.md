@@ -179,3 +179,4 @@ void ProjectionStageCovered::transform(WorkingSetMember* member) const {
 
 이전글: https://frogred8.github.io/
 #frogred8 #mongodb #covered_query
+</pre>

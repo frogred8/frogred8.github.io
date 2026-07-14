@@ -104,3 +104,4 @@ The guard bytes (0xFD) are like Fences around your memory.
 
 이전글: https://frogred8.github.io/
 #frogred8 #c++ #memory #allocation
+</pre>

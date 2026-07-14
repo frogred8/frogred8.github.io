@@ -124,3 +124,4 @@ I also spent several days looking into AMD's ROCm and HIP in addition to Nvidia'
 
 Previous post: https://frogred8.github.io/
 #frogred8 #deepseek #ptx
+</pre>

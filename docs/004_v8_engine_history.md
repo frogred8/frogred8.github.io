@@ -45,3 +45,4 @@ Turbofan은 이전의 Crankshaft 역할과 동일하게 최적화 컴파일러�
 
 #javascript #v8
 
+</pre>

@@ -104,3 +104,4 @@ intel은 코어 당 L1d, L2 캐시를 amd에 비해 50%이상 크게 가지는 �
 
 이전글: https://frogred8.github.io/
 #frogred8 #linux #network
+</pre>

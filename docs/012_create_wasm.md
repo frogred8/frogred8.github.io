@@ -214,3 +214,4 @@ async function instantiate(module, imports = {}) {
 
 이전글: https://frogred8.github.io/
 #frogred8 #WASM #AssemblyScript
+</pre>

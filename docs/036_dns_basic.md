@@ -185,3 +185,4 @@ ns2.naver.com.		12850	IN 	A	125.209.249.6
 
 이전글: https://frogred8.github.io/
 #frogred8 #network #dns
+</pre>

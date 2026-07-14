@@ -266,3 +266,4 @@ perf record --call-graph dwarf ./test2
 
 이전글: https://frogred8.github.io/
 #frogred8 #c++ #performance
+</pre>

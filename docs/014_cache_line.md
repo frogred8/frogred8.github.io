@@ -137,3 +137,4 @@ LLd misses:       127,877  (   64,700 rd   +    63,177 wr)
 D1  miss rate:       10.3% (     12.5%     +       2.8%  )
 LLd miss rate:        1.2% (      0.8%     +       2.8%  )
 
+</pre>

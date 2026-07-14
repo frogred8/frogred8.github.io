@@ -124,3 +124,4 @@ nvidia의 cuda외에 amd의 ROCm이랑 HIP도 같이 다뤄보려고 며칠동�
 
 이전글: https://frogred8.github.io/
 #frogred8 #deepseek #ptx
+</pre>

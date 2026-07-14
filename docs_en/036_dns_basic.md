@@ -185,3 +185,4 @@ They will fetch the new value only after that cache time expires, so DNS changes
 
 Previous post: https://frogred8.github.io/
 #frogred8 #network #dns
+</pre>

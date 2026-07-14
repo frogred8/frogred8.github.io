@@ -61,3 +61,4 @@ https://en.cppreference.com/w/cpp/language/new#Placement_new
 https://en.cppreference.com/w/cpp/language/parameter_pack
 
 #frogred8 #c++ #emplace #variadic #template
+</pre>

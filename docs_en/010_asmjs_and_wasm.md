@@ -85,3 +85,4 @@ WebAssembly is such a broad topic, and recent articles and older articles are mi
 To be honest, I’m not completely confident, but since this is what I studied, I tried organizing it anyway. If there’s any incorrect information, please let me know in the comments.
 
 #frogred8 #WebAssembly #WASM
+</pre>

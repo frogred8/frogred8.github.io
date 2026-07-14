@@ -301,3 +301,4 @@ rotate로 설정해도 일회성으로 요청하고 종료하는 프로그램(ho
 
 이전글: https://frogred8.github.io/
 #frogred8 #network #getaddrinfo #dns
+</pre>

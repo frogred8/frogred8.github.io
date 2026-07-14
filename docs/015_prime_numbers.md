@@ -120,3 +120,4 @@ for (let i=3; i<sq; i+=2) {
 
 이전글: https://frogred8.github.io/
 #frogred8 #codetest #prime
+</pre>

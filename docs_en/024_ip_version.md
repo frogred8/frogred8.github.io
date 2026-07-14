@@ -35,3 +35,4 @@ Then, in 1998, a new IP specification called IPv6 was released. The reason versi
 
 Previous post: https://frogred8.github.io/
 #frogred8 #network #ipv4
+</pre>

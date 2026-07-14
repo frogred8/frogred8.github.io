@@ -214,3 +214,4 @@ After the next WASM post, I should move on to a lighter topic. Since I've been s
 
 Previous post: https://frogred8.github.io/
 #frogred8 #WASM #AssemblyScript
+</pre>

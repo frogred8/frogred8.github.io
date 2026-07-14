@@ -301,3 +301,4 @@ Even when rotate is configured, programs that make a one-off request and exit (h
 
 Previous post: https://frogred8.github.io/
 #frogred8 #network #getaddrinfo #dns
+</pre>

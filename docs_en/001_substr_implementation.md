@@ -91,3 +91,4 @@ Conclusion)
 I had no idea that a question that started from one line on MDN would turn into such a long journey, but anyway, as long as I had fun, that is enough.
 To be honest, I could have just understood it by myself and moved on, but since today's topic was a bit complicated, I wanted to write it somewhere as a way to organize my thoughts.
 If I feel inspired again next time, I will write another one.
+</pre>

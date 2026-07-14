@@ -332,3 +332,4 @@ CHAR_TYPE *String_Imp<CHAR_TYPE, SIZE_TYPE>::dataPtr()
 
 이전글: https://frogred8.github.io/
 #frogred8 #c++ #small_string_optimization
+</pre>

@@ -80,3 +80,4 @@ CIDR: 15.28.32.0/19 (8,192개)
 
 이전글: https://frogred8.github.io/
 #frogred8 #network #ip #cidr
+</pre>
