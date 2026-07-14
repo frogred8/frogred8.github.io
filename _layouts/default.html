@@ -259,6 +259,63 @@ layout: table_wrappers
           window.location.href = targetPathname + window.location.search + window.location.hash;
         }
       }
+
+      function linkifyPreBlocks() {
+        var urlPattern = /https?:\/\/[^\s<>"']+/g;
+
+        document.querySelectorAll('#main-content pre').forEach(function (pre) {
+          var walker = document.createTreeWalker(pre, NodeFilter.SHOW_TEXT);
+          var textNodes = [];
+
+          while (walker.nextNode()) {
+            textNodes.push(walker.currentNode);
+          }
+
+          textNodes.forEach(function (node) {
+            var text = node.nodeValue;
+            var match = null;
+            var lastIndex = 0;
+            var fragment = document.createDocumentFragment();
+
+            urlPattern.lastIndex = 0;
+            if (!urlPattern.test(text)) {
+              return;
+            }
+
+            urlPattern.lastIndex = 0;
+            while ((match = urlPattern.exec(text)) !== null) {
+              var url = match[0];
+              var trailing = '';
+              var trailingMatch = url.match(/[.,;:!?)]$/);
+
+              if (trailingMatch) {
+                trailing = trailingMatch[0];
+                url = url.slice(0, -1);
+              }
+
+              fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+
+              var link = document.createElement('a');
+              link.href = url;
+              link.textContent = url;
+              link.target = '_blank';
+              link.rel = 'noopener noreferrer';
+              fragment.appendChild(link);
+
+              if (trailing) {
+                fragment.appendChild(document.createTextNode(trailing));
+              }
+
+              lastIndex = match.index + match[0].length;
+            }
+
+            fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+            node.parentNode.replaceChild(fragment, node);
+          });
+        });
+      }
+
+      linkifyPreBlocks();
     }());
   </script>
   <style>
@@ -294,6 +351,7 @@ layout: table_wrappers
       color: #111318;
       background: #f5f6fa;
     }
+
   </style>
 </body>
 </html>
