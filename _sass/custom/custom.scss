@@ -1,0 +1,266 @@
+// Keep the existing palette and let spacing define the layout.
+html,
+.site-nav,
+.main-content pre,
+.main-content .highlighter-rouge,
+.main-content .table-wrapper {
+  scrollbar-color: $grey-dk-100 transparent;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $grey-dk-100;
+    border-radius: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $grey-dk-000;
+  }
+}
+
+.side-bar,
+.main-header,
+.site-header {
+  border-color: rgba($body-text-color, 0.08);
+}
+
+.site-header {
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+}
+
+.site-title {
+  min-width: 0;
+  padding-right: 8px;
+  font-size: 16px;
+}
+
+.site-title:hover,
+.site-button:hover,
+.nav-list .nav-list-item .nav-list-link:hover,
+.nav-list .nav-list-item .nav-list-link.active,
+.nav-list .nav-list-item .nav-list-expander:hover {
+  background-image: none;
+}
+
+.site-button {
+  justify-content: center;
+  color: $body-text-color;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.sidebar-language-toggle {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 2px;
+  margin-right: 12px;
+  margin-left: auto;
+}
+
+.sidebar-language-toggle-button {
+  min-width: 30px;
+  min-height: 32px;
+  padding: 6px 4px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: $grey-dk-000;
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &.active {
+    color: $body-heading-color;
+    background: rgba($body-text-color, 0.08);
+  }
+}
+
+.site-nav {
+  min-height: 0;
+  padding: 12px;
+
+  @include mq(md) {
+    overscroll-behavior-y: contain;
+    scrollbar-color: $grey-dk-000 $grey-dk-250;
+    // Use the explicit WebKit width where supported; Firefox keeps its native width.
+    scrollbar-width: auto;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $grey-dk-250;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: $grey-dk-000;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: $body-text-color;
+    }
+  }
+}
+
+.sidebar-scroll-control {
+  display: none;
+
+  @include mq(md) {
+    display: flex;
+    width: 100%;
+    height: 54px;
+    flex: 0 0 54px;
+    align-items: center;
+    padding: 0 12px;
+  }
+
+  @include mq(lg) {
+    width: $nav-width;
+  }
+}
+
+.sidebar-scroll-button {
+  width: 100%;
+  min-height: 32px;
+  padding: 9px 18px;
+  font: inherit;
+  font-size: 18px;
+  line-height: 1.5;
+  color: $body-text-color;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    color: $body-heading-color;
+    background: rgba($body-text-color, 0.06);
+  }
+}
+
+.nav-list .nav-list-item .nav-list-link {
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: $body-text-color;
+  overflow-wrap: anywhere;
+  border-radius: 4px;
+
+  &:hover {
+    color: $body-heading-color;
+  }
+
+  &.active {
+    font-weight: 500;
+    color: $body-heading-color;
+    background-color: rgba($body-text-color, 0.06);
+  }
+}
+
+.nav-list .nav-list-item .nav-list-expander + .nav-list-link {
+  padding-right: $nav-list-item-height-sm;
+}
+
+.main-content-wrap {
+  padding-top: 32px;
+  padding-bottom: 64px;
+
+  @include mq(md) {
+    padding-top: 48px;
+  }
+}
+
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-title {
+  margin-bottom: 12px;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+
+  @include mq(md) {
+    font-size: 30px;
+  }
+}
+
+.page-date {
+  margin: 0;
+  font-size: 13px;
+  color: $grey-dk-000;
+}
+
+.main-content {
+  font-size: 16px;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+
+  a {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  // Most articles use plain pre elements for prose. Keep those wrapping.
+  pre {
+    line-height: 1.85;
+  }
+
+  // Code and tables retain local horizontal scrolling and indentation.
+  .highlight pre,
+  pre.highlight,
+  pre:has(> code) {
+    overflow-x: auto;
+    white-space: pre;
+    overflow-wrap: normal;
+  }
+
+  .home-post-list {
+    padding: 0;
+    margin-top: 32px;
+
+    > li {
+      margin: 0;
+
+      &::before {
+        display: none;
+      }
+
+      > a {
+        display: block;
+        padding: 12px 0;
+        color: $body-text-color;
+        background-image: none;
+
+        &:hover {
+          color: $link-color;
+          background-image: none;
+        }
+      }
+    }
+  }
+}
+
+.site-title:focus-visible,
+.site-button:focus-visible,
+.sidebar-language-toggle-button:focus-visible,
+.sidebar-scroll-button:focus-visible,
+.site-nav:focus-visible,
+.nav-list-link:focus-visible,
+.main-content a:focus-visible {
+  outline: 2px solid $link-color;
+  outline-offset: 2px;
+}

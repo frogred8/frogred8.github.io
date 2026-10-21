@@ -47,11 +47,14 @@ layout: table_wrappers
         <button type="button" class="sidebar-language-toggle-button" data-language-toggle="ko">KO</button>
         <button type="button" class="sidebar-language-toggle-button" data-language-toggle="en">EN</button>
       </div>
-      <a href="#" id="menu-button" class="site-button">
+      <button type="button" id="menu-button" class="site-button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav main-header">
         <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-menu"></use></svg>
-      </a>
+      </button>
     </div>
-    <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
+    <div class="sidebar-scroll-control">
+      <button type="button" class="sidebar-scroll-button" data-sidebar-scroll="up" aria-controls="site-nav" hidden>↑ 이전 글 목록</button>
+    </div>
+    <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav" tabindex="-1">
       {% if site.just_the_docs.collections %}
         {% assign collections_size = site.just_the_docs.collections | size %}
         {% for collection_entry in site.just_the_docs.collections %}
@@ -76,6 +79,9 @@ layout: table_wrappers
         </div>
       {% endif %}
     </nav>
+    <div class="sidebar-scroll-control">
+      <button type="button" class="sidebar-scroll-button" data-sidebar-scroll="down" aria-controls="site-nav" hidden>↓ 더 많은 글</button>
+    </div>
   </div>
   <div class="main" id="top">
     <div id="main-header" class="main-header">
@@ -138,8 +144,12 @@ layout: table_wrappers
           </nav>
         {% endif %}
       {% endunless %}
-      <h4 style="text-align:right">{{ page.date }}</h4>
-      <h2>{{ page.title }}</h2>
+      <header class="page-header">
+        <h1 class="page-title">{{ page.title }}</h1>
+        {% if page.date %}
+          <p class="page-date">{{ page.date }}</p>
+        {% endif %}
+      </header>
       <div id="main-content" class="main-content" role="main">
         {% if site.heading_anchors != false %}
           {% include vendor/anchor_headings.html html=content beforeHeading="true" anchorBody="<svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><use xlink:href=\"#svg-link\"></use></svg>" anchorClass="anchor-heading" anchorAttrs="aria-labelledby=\"%html_id%\"" %}
@@ -214,6 +224,55 @@ layout: table_wrappers
         return language && language.toLowerCase().indexOf('ko') === 0;
       });
       var selectedLanguage = localStorage.getItem(storageKey) || (isKorean ? 'ko' : 'en');
+      var sidebarNav = document.getElementById('site-nav');
+      var sidebarScrollButtons = document.querySelectorAll('[data-sidebar-scroll]');
+      var desktopSidebar = window.matchMedia('(min-width: 50rem)');
+      var sidebarUpdatePending = false;
+
+      function updateSidebarScroll() {
+        sidebarUpdatePending = false;
+        var remaining = sidebarNav.scrollHeight - sidebarNav.clientHeight - sidebarNav.scrollTop;
+
+        sidebarScrollButtons.forEach(function (button) {
+          var isUp = button.getAttribute('data-sidebar-scroll') === 'up';
+          var visible = desktopSidebar.matches && (isUp ? sidebarNav.scrollTop > 1 : remaining > 1);
+
+          if (!visible && document.activeElement === button) {
+            sidebarNav.focus({ preventScroll: true });
+          }
+          button.hidden = !visible;
+        });
+      }
+
+      function scheduleSidebarScrollUpdate() {
+        if (!sidebarUpdatePending) {
+          sidebarUpdatePending = true;
+          window.requestAnimationFrame(updateSidebarScroll);
+        }
+      }
+
+      sidebarScrollButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var direction = button.getAttribute('data-sidebar-scroll') === 'up' ? -1 : 1;
+          var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          sidebarNav.scrollBy({
+            top: direction * sidebarNav.clientHeight * 0.8,
+            behavior: reduceMotion ? 'instant' : 'smooth'
+          });
+        });
+      });
+
+      sidebarNav.addEventListener('scroll', scheduleSidebarScrollUpdate, { passive: true });
+      window.addEventListener('resize', scheduleSidebarScrollUpdate);
+      window.addEventListener('pageshow', scheduleSidebarScrollUpdate);
+
+      if (window.ResizeObserver) {
+        var sidebarResizeObserver = new ResizeObserver(scheduleSidebarScrollUpdate);
+        sidebarResizeObserver.observe(sidebarNav);
+        Array.prototype.forEach.call(sidebarNav.children, function (element) {
+          sidebarResizeObserver.observe(element);
+        });
+      }
 
       function setLanguage(language) {
         selectedLanguage = language === 'ko' ? 'ko' : 'en';
@@ -231,6 +290,14 @@ layout: table_wrappers
           button.classList.toggle('active', isActive);
           button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
         });
+
+        sidebarScrollButtons.forEach(function (button) {
+          var isUp = button.getAttribute('data-sidebar-scroll') === 'up';
+          button.textContent = selectedLanguage === 'ko'
+            ? (isUp ? '↑ 이전 글 목록' : '↓ 더 많은 글')
+            : (isUp ? '↑ Earlier articles' : '↓ More articles');
+        });
+        scheduleSidebarScrollUpdate();
       }
 
       document.querySelectorAll('[data-language-toggle]').forEach(function (button) {
@@ -316,42 +383,8 @@ layout: table_wrappers
       }
 
       linkifyPreBlocks();
+      {% include js/partial-navigation.js %}
     }());
   </script>
-  <style>
-    .sidebar-language-toggle {
-      margin-left: auto;
-      margin-right: 0.75rem;
-      display: flex;
-      flex: 0 0 auto;
-    }
-
-    .sidebar-language-toggle-button {
-      min-width: 2.25rem;
-      padding: 0.25rem 0.4rem;
-      border: 1px solid #44434d;
-      border-right: 0;
-      font-size: 0.75rem;
-      line-height: 1.2;
-      color: #f5f6fa;
-      background: transparent;
-      cursor: pointer;
-    }
-
-    .sidebar-language-toggle-button:first-child {
-      border-radius: 6px 0 0 6px;
-    }
-
-    .sidebar-language-toggle-button:last-child {
-      border-right: 1px solid #44434d;
-      border-radius: 0 6px 6px 0;
-    }
-
-    .sidebar-language-toggle-button.active {
-      color: #111318;
-      background: #f5f6fa;
-    }
-
-  </style>
 </body>
 </html>

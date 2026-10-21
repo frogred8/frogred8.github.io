@@ -43,9 +43,11 @@ function initNav() {
     e.preventDefault();
 
     if (menuButton.classList.toggle('nav-open')) {
+      menuButton.setAttribute('aria-expanded', 'true');
       siteNav.classList.add('nav-open');
       mainHeader.classList.add('nav-open');
     } else {
+      menuButton.setAttribute('aria-expanded', 'false');
       siteNav.classList.remove('nav-open');
       mainHeader.classList.remove('nav-open');
     }
