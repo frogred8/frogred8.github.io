@@ -1,4 +1,7 @@
 // Keep the existing palette and let spacing define the layout.
+// Markdown output needs element selectors, as in the theme's content styles.
+// stylelint-disable selector-max-type
+
 html,
 .site-nav,
 .main-content pre,
@@ -54,9 +57,9 @@ html,
 .site-button {
   justify-content: center;
   color: $body-text-color;
+  cursor: pointer;
   background: transparent;
   border: 0;
-  cursor: pointer;
 }
 
 .sidebar-language-toggle {
@@ -74,10 +77,10 @@ html,
   font-size: 12px;
   line-height: 1.2;
   color: $grey-dk-000;
+  cursor: pointer;
   background: transparent;
   border: 0;
   border-radius: 4px;
-  cursor: pointer;
 
   &.active {
     color: $body-heading-color;
@@ -139,10 +142,10 @@ html,
   line-height: 1.5;
   color: $body-text-color;
   text-align: left;
+  cursor: pointer;
   background: transparent;
   border: 0;
   border-radius: 4px;
-  cursor: pointer;
 
   &:hover {
     color: $body-heading-color;
@@ -169,7 +172,7 @@ html,
   }
 }
 
-.nav-list .nav-list-item .nav-list-expander + .nav-list-link {
+.nav-list-item .nav-list-expander + .nav-list-link {
   padding-right: $nav-list-item-height-sm;
 }
 
@@ -220,6 +223,7 @@ html,
   }
 
   // Code and tables retain local horizontal scrolling and indentation.
+  // stylelint-disable selector-no-qualifying-type
   .highlight pre,
   pre.highlight,
   pre:has(> code) {
@@ -227,6 +231,7 @@ html,
     white-space: pre;
     overflow-wrap: normal;
   }
+  // stylelint-enable selector-no-qualifying-type
 
   .home-post-list {
     padding: 0;
@@ -238,19 +243,19 @@ html,
       &::before {
         display: none;
       }
-
-      > a {
-        display: block;
-        padding: 12px 0;
-        color: $body-text-color;
-        background-image: none;
-
-        &:hover {
-          color: $link-color;
-          background-image: none;
-        }
-      }
     }
+  }
+}
+
+.home-post-list > li > a {
+  display: block;
+  padding: 12px 0;
+  color: $body-text-color;
+  background-image: none;
+
+  &:hover {
+    color: $link-color;
+    background-image: none;
   }
 }
 
