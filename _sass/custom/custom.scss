@@ -161,14 +161,14 @@ html,
   overflow-wrap: anywhere;
   border-radius: 4px;
 
-  &:hover {
-    color: $body-heading-color;
-  }
-
   &.active {
     font-weight: 500;
     color: $body-heading-color;
     background-color: rgba($body-text-color, 0.06);
+  }
+
+  &:hover {
+    color: $link-color;
   }
 }
 
