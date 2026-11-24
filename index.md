@@ -13,7 +13,7 @@ permalink: /
 {% assign korean_pages = site.pages | where_exp: "item", "item.url contains '/docs/'" | sort: "path" %}
 {% for doc in korean_pages %}
   {% if doc.nav_exclude != true and doc.name contains ".md" %}
-  <li><a href="{{ doc.url | relative_url }}">{{ doc.title }}</a></li>
+  <li><a href="{{ doc.url | relative_url }}"><span class="home-post-title">{{ doc.title }}</span>{% if doc.date %}<time class="home-post-date" datetime="{{ doc.date | date: '%Y-%m-%d' }}">{{ doc.date | date: '%Y-%m-%d' }}</time>{% endif %}</a></li>
   {% endif %}
 {% endfor %}
 </ul>
@@ -22,7 +22,7 @@ permalink: /
 {% assign english_pages = site.pages | where_exp: "item", "item.url contains '/docs_en/'" | sort: "path" %}
 {% for doc in english_pages %}
   {% if doc.nav_exclude != true and doc.name contains ".md" %}
-  <li><a href="{{ doc.url | relative_url }}">{{ doc.title }}</a></li>
+  <li><a href="{{ doc.url | relative_url }}"><span class="home-post-title">{{ doc.title }}</span>{% if doc.date %}<time class="home-post-date" datetime="{{ doc.date | date: '%Y-%m-%d' }}">{{ doc.date | date: '%Y-%m-%d' }}</time>{% endif %}</a></li>
   {% endif %}
 {% endfor %}
 </ul>
