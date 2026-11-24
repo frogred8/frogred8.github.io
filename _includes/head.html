@@ -1,6 +1,9 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  {% if site.color_scheme == 'dark' %}
+    <meta name="color-scheme" content="dark">
+  {% endif %}
 
   {% unless site.plugins contains "jekyll-seo-tag" %}
     <title>{{ page.title }} - {{ site.title }}</title>

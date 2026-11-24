@@ -239,16 +239,18 @@ html,
 
     > li {
       margin: 0;
+      border-bottom: 1px solid
+        mix($body-text-color, $body-background-color, 24%);
 
       &::before {
         display: none;
       }
 
       &:nth-child(odd) {
-        background-color: rgba($body-text-color, 0.12);
+        background-color: mix($body-text-color, $body-background-color, 4%);
       }
       &:nth-child(even) {
-        background-color: rgba($body-text-color, 0.02);
+        background-color: mix($body-text-color, $body-background-color, 2%);
       }
     }
   }
