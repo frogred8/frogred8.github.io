@@ -245,10 +245,10 @@ html,
       }
 
       &:nth-child(odd) {
-        background-color: rgba($body-text-color, 0.04);
+        background-color: rgba($body-text-color, 0.12);
       }
       &:nth-child(even) {
-        background-color: rgba($body-text-color, 0.01);
+        background-color: rgba($body-text-color, 0.02);
       }
     }
   }
